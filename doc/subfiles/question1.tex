@@ -4,4 +4,90 @@
 \begin{document}
 \centerline{\Huge \bf Question 1}
 \bigskip
+
+\section*{Algorithme 1}
+
+Le temps d'exécution de l'algorithme dépend de la taille de l'instance $n$ 
+(nombre d'élément dans le vecteur d'entrée $A$)
+et de la valeur de $k$ généré aléatoirement. 
+
+L'opération de base est l'affectation affectation à $c$ dans la boucle \lstinline{pour}.
+
+Il n'y a pas de pire ou de meilleur cas, 
+car l'algorithme ne dépend pas du contenu du vecteur (à l'exception de $n=1$,
+où la valeur $A[0]=0$ où la conditionnelle s'exécutera toujours et où $A[0] = 1$ ou elle ne s'éxécutera jamais).
+
+Désignons la valeur de $A[0]$ par $a$
+
+La complexité de l'algorithme dans tous les cas est donc la suivante:
+
+\begin{deriv}
+    C\pars{n}
+    \<=
+    \commentaire{Définition de l'algorithme}
+    E_a\crochs{E_k\crochs{C\pars{n, k, a}}}
+    \<=
+    \commentaire{Étendre les espérences}
+    \sum\limits_{a} \rho\pars{a} \sum\limits_{k} \rho\pars{k}C\pars{n, k, a}
+    \<=
+    \commentaire{Valeur de $a$ possible est de $\crochs{0..1}$}
+    \sum\limits_{a=0}^{1} \rho\pars{a} \sum\limits_{k} \rho\pars{k}C\pars{n, k, a}
+    \<=
+    \commentaire{Valeur de $k$ possible est de $\crochs{0..n-1}$}
+    \sum\limits_{a=0}^{1} \rho\pars{a} \sum\limits_{k=0}^{n-1} \rho\pars{k}C\pars{n, k, a}
+    \<=
+    \commentaire{Toutes les possibilités d'avoir une valeur $a$ \\
+        sont équiprobables. Donc $\rho{\pars{a} = \frac{1}{2}}$ }
+        \sum\limits_{a=0}^{1} \frac{1}{2} \sum\limits_{k=0}^{n-1} \rho\pars{k}C\pars{n, k, a}
+    \<=
+    \commentaire{Toutes les possibilités d'avoir une valeur $k$ \\
+        sont équiprobables. Donc $\rho{\pars{a} = \frac{1}{n}}$ }
+    \sum\limits_{a=0}^{1} \frac{1}{2} \sum\limits_{k=0}^{n-1} \frac{1}{n}C\pars{n, k, a}
+    \<=
+    \commentaire{Mettre en évidance les constantes}
+    \frac{1}{2}\frac{1}{n} \sum\limits_{a=0}^{1}\sum\limits_{k=0}^{n-1} C\pars{n, k, a}
+    \<=
+    \commentaire{Étendre partiellement la sommation de $k$}
+    \frac{1}{2}\frac{1}{n} \sum\limits_{a=0}^{1}\pars{C\pars{n, 0, a} + C\pars{n, 1, a} + \sum\limits_{k=2}^{n-1} C\pars{n, k, a}}
+    \<=
+    \commentaire{Selon le tableau plus bas, $\forall k \geq 2 : C\pars{n, k, a} = 0$}
+    \frac{1}{2}\frac{1}{n} \sum\limits_{a=0}^{1}\pars{C\pars{n, 0, a} + C\pars{n, 1, a}}
+    \<=
+    \commentaire{Étendre la sommation de $a$}
+    \frac{1}{2}\frac{1}{n} \pars{C\pars{n, 0, 0} + C\pars{n, 1, 0} + C\pars{n, 0, 1} + C\pars{n, 1, 1}}
+    \<=
+    \commentaire{Selon le tableau plus bas}
+    \frac{1}{2}\frac{1}{n} \pars{ 100n + 0 + 0 + 100n}
+    \<=
+    \commentaire{Simplification}
+    \frac{1}{2}\frac{1}{n} \pars{ 200n}
+    \<=
+    \commentaire{Simplification}
+    \frac{1}{2} \pars{ 200}
+    \<=
+    \commentaire{Simplification}
+    100
+    \<\in
+    \commentaire{Définition de $\Theta\pars{1}$}
+    \Theta\pars{1}
+\end{deriv} 
+
+Analysons $C\pars{n, k, a}$
+
+\begin{tabular}{c|c|c|c|c|c}
+    \multicolumn{1}{c}{} &
+    \multicolumn{5}{|c}{$C(n, k, a)$}\\
+    \hline
+    $a$ & $C(n, 0, a)$ & $C(n, 1, a)$ & $C(n, 2, a)$ & $C(n, i, a)$ &  $C(n, n, a)$ \\
+    \hline
+    $a=0$ & $100 \cdot n$ & 0 & 0 & 0 &  0\\
+    \hline
+    $a=1$ & 0 & $100 \cdot n$ & 0 & 0 &  0
+\end{tabular}
+
+\newpage
+
+\section*{Algorithme 2}
+
+
 \end{document} 
