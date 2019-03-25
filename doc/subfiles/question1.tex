@@ -160,7 +160,7 @@ La complexité de l'algorithme en pire cas sera donc la suivante:
 \end{deriv}
 
 
-\subsubsection*{Calcul de $\Omega$}
+\subsubsection*{Calcul de $\BigO$}
 \begin{deriv}
     C_{worst}\pars{n}
     \<=
@@ -170,11 +170,11 @@ La complexité de l'algorithme en pire cas sera donc la suivante:
     \commentaire{Retirer la soustraction}
     \frac{n^2}{3}+\frac{1}{6}
     \<\in
-    \commentaire{Règle du maximum et définition de $\Omega$}
-    \Omega\pars{n^2}
+    \commentaire{Règle du maximum et définition de $\BigO$}
+    \BigO\pars{n^2}
 \end{deriv}
 
-\subsubsection*{Calcul de $\BigO$}
+\subsubsection*{Calcul de $\Omega$}
 \begin{deriv}
     C_{worst}\pars{n}
     \<=
@@ -196,12 +196,117 @@ La complexité de l'algorithme en pire cas sera donc la suivante:
     \commentaire{Simplification}
     \frac{1}{6}\pars{n^2}
     \<\in
-    \commentaire{Définition de $\BigO$}
-    \BigO\pars{n^2}
+    \commentaire{Définition de $\Omega$}
+    \Omega\pars{n^2}
 \end{deriv}
 
 \subsubsection*{Définition de $\Theta$}
 Puisque $C_{worst}\pars{n} \in \Omega\pars{n^2}$ et $C_{worst}\pars{n} \in \BigO\pars{n^2}$,
 $C_{worst}\pars{n} \in \Theta\pars{n^2}$
+
+\subsection*{Meilleur cas}
+
+En meilleur cas, la valeur à la première position du vecteur $A$ est 1. ($A[0] = 1$)
+
+Alors, nous sautons complètetement la conditionnelle \lstinline{si - alors}.
+
+Puisque l'opération de base n'est jamais exécutée,
+la complexité de l'algorithme en meilleur cas sera donc la suivante:
+$C_{best}\pars{n} = 0 \in \Theta\pars{1}$
+
+
+\subsection*{Cas moyen}
+
+En cas moyen, il faut calculer la moyenne sur toutes les instances de taille $n$.
+
+Définition $a = A[0]$
+
+La complexité de l'algorithme en cas moyen sera donc la suivante:
+\begin{deriv}
+    C_{avg}\pars{n}
+    \<=
+    \commentaire{Définition de l'algorithme}
+    E_{a}E_{k}\crochs{C\pars{n, k, a}}
+    \<=
+    \commentaire{Étendre l'espérence de $a$}
+    \sum\limits_a \rho\pars{a}E_{k}\crochs{C\pars{n, k, a}}
+    \<=
+    \commentaire{Valeurs possibles de $a$}
+    \sum\limits_{a=0}^1 \rho\pars{a} E_{k}\crochs{C\pars{n, k, a}}
+    \<=
+    \commentaire{Toutes les possibilités d'avoir un valeur de $a$ sont\\
+                 équiprobables. Donc $\rho\pars{a} = \frac{1}{2}$}
+    \sum\limits_{a=0}^1 \frac{1}{2} E_{k}\crochs{C\pars{n, k, a}}
+    \<=
+    \commentaire{Extraire multiplication constante}
+    \frac{1}{2} \sum\limits_{a=0}^1E_{k}\crochs{C\pars{n, k, a}}
+    \<=
+    \commentaire{Étendre la sommation de $a$}
+    \frac{1}{2} \pars{E_{k}\crochs{C\pars{n, k, 0}} + E_{k}\crochs{C\pars{n, k, 1}}} 
+    \<=
+    \commentaire{$C_{worst}\pars{n} = E_{k}\crochs{C\pars{n, k, 0}}$ puisque $a = 0$}
+    \frac{1}{2} \pars{C_{worst}\pars{n} + E_{k}\crochs{C\pars{n, k, 1}}} 
+    \<=
+    \commentaire{$C_{best}\pars{n} = E_{k}\crochs{C\pars{n, k, 1}}$ puisque $a = 1$}
+    \frac{1}{2} \pars{C_{worst}\pars{n} + C_{best}\pars{n}}
+    \<=
+    \commentaire{Définition de $C_{worst}\pars{n}$}
+    \frac{1}{2} \pars{\frac{2n^2-3n + 1}{6} + C_{best}\pars{n}}
+    \<=
+    \commentaire{Définition de $C_{best}\pars{n}$}
+    \frac{1}{2} \pars{\frac{2n^2-3n + 1}{6} + 0}
+    \<=
+    \commentaire{Simplification}
+    \frac{1}{2} \pars{\frac{2n^2-3n + 1}{6}}
+    \<=
+    \commentaire{Simplification}
+    \frac{2n^2-3n + 1}{12}
+\end{deriv}
+
+\subsubsection*{Calcul de théta}
+
+Montrons que $C_{avg}\pars{n} \in Theta\pars{n^2}$. 
+
+Nous supposons que $C_{avg}\pars{n} \in Theta\pars{n^2}$, car
+le polynôme ressemble beaucoup au $C_{worst}\pars{n}$.
+
+\begin{deriv}
+    \lim\limits_{n->\infty} \frac{\frac{2n^2-3n + 1}{12}}{n^2}
+    \<=
+    \commentaire{Double fraction}
+    \lim\limits_{n->\infty} \frac{2n^2-3n + 1}{12n^2}
+    \<=
+    \commentaire{Règle de l'hôspital}
+    \lim\limits_{n->\infty} \frac{\pars{2n^2-3n + 1}'}{\pars{12n^2}'}
+    \<=
+    \commentaire{Distribuer la dérivée}
+    \lim\limits_{n->\infty} \frac{\pars{2n^2}'-\pars{3n}' + \pars{1}'}{\pars{12n^2}'}
+    \<=
+    \commentaire{Dériver}
+    \lim\limits_{n->\infty} \frac{2\cdot2n-1\cdot3 + 0\cdot1}{2\cdot12n}
+    \<=
+    \commentaire{Simplifier}
+    \lim\limits_{n->\infty} \frac{4n-3}{24n}
+    \<=
+    \commentaire{Règle de l'hôspital}
+    \lim\limits_{n->\infty} \frac{\pars{4n-3}'}{\pars{24n}'}
+    \<=
+    \commentaire{Distribuer la dérivée}
+    \lim\limits_{n->\infty} \frac{\pars{4n}'-\pars{3}'}{\pars{24n}'}
+    \<=
+    \commentaire{Dériver}
+    \lim\limits_{n->\infty} \frac{1 \cdot 4-0 \cdot 3}{1 \cdot 24}
+    \<=
+    \commentaire{Simplifier}
+    \lim\limits_{n->\infty} \frac{4}{24}
+    \<=
+    \commentaire{Résoudre la limite}
+    \frac{4}{24}
+    \<=
+    \commentaire{Simplifier}
+    \frac{1}{6}
+\end{deriv}
+
+Donc $C_{avg}\pars{n} \in \Theta\pars{n^2}$.
 
 \end{document} 
