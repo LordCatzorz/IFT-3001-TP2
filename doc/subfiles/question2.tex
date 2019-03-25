@@ -5,6 +5,44 @@
 \centerline{\Huge \bf Question 2}
 \bigskip
 
+\section*{Description}
 
+Soit un menu $R$ où pour un item $x$, il y a un nombre $a_x$ d'ailes 
+et $b_x$ de pintes de bière pour un coût $c_x$ d'associé.
+
+\subsection*{Définition du tableau}
+
+Le tableau $M$ contient le prix minimum.
+
+\subsection*{Définition des dimensions du tableau}
+
+La première dimension va de 0 jusqu'au nombre d'item dans le menu.
+
+La deuxième dimension va de 0 jusqu'au nombre de d'ailes commandées.
+
+La troisième dimension va de 0 jusqu'au nombre de bières commandées.
+
+\subsection*{Définition d'une cellule}
+
+La cellule $M[i,j,k]$ contient le prix minimum pour une commande de j ailes et k bières.
+Elle contient -1 si cette combinaisons de j ailes et k bières est impossible.
+
+
+\subsection*{Conditions initiales}
+
+La cellule $M[0, j, k] = -1$
+
+\subsection*{Récurrence}
+
+\[
+    M(i, j, k) =
+    \begin{cases}
+        -1 & \text{si } i = 0 \\
+        -1 & \text{si } j-a_i < 0 \\
+        -1 & \text{si } k-b_i < 0 \\
+        -1 & \text{si } M(i-1, j-a_i, k-b_i) < 0 \\
+        M(i-1, j-a_i, k-b_i) + c_i  & \text{sinon } \\
+    \end{cases}
+\]
 
 \end{document} 
