@@ -9,9 +9,10 @@
 
 Le temps d'exécution de l'algorithme dépend de la taille de l'instance $n$ 
 (nombre d'élément dans le vecteur d'entrée $A$)
-et de la valeur de $k$ généré aléatoirement. 
+et de la valeur de $k$ générée aléatoirement. 
 
-L'opération de base est l'affectation affectation à $c$ dans la boucle \lstinline{pour}.
+L'opération de base est le calcul de $i\text{ mod }n$. 
+C'est l'opération qui peut être le plus souvent.
 
 Il n'y a pas de pire ou de meilleur cas, 
 car l'algorithme ne dépend pas du contenu du vecteur (à l'exception de $n=1$,
@@ -89,5 +90,118 @@ Analysons $C\pars{n, k, a}$
 
 \section*{Algorithme 2}
 
+Le temps d'exécution de l'algorithme dépend de la taille de l'instance $n$ 
+(nombre d'élément dans le vecteur d'entrée $A$)
+et de la valeur de $k$ générée aléatoirement. 
+
+L'opération de base est le calcul de $i\text{ mod }n$.
+C'est l'opération qui peut être exécuter le plus souvent.
+
+Il y a un meilleur et un pire cas.
+
+\subsection*{Pire cas}
+En pire cas, la valeur à la première position du vecteur $A$ est 0. ($A[0] = 0$)
+
+Alors, nous entrons dans la conditionnelle \lstinline{si - alors}.
+
+La complexité de l'algorithme en pire cas sera donc la suivante:
+
+\begin{deriv}
+    C_{worst}\pars{n}
+    \<=
+    \commentaire{Définition de l'algorithme}
+    E_k\crochs{C\pars{n, k}}
+    \<=
+    \commentaire{Étendre les espérences}
+    \sum\limits_{k} \rho\pars{k}C\pars{n, k}
+    \<=
+    \commentaire{Valeur possible de $k$}
+    \sum\limits_{k=0}^{n-1} \rho\pars{k}C\pars{n, k}
+    \<=
+    \commentaire{Toutes les possibilités d'Avoir une valeur de $k$\\
+                 sont équiprobables. Donc $\rho\pars{k} = \frac{1}{n}$}
+    \sum\limits_{k=0}^{n-1} \frac{1}{n}C\pars{n, k}
+    \<=
+    \commentaire{Extraction de valeur constante de la sommation}
+    \sum\limits_{k=0}^{n-1} \frac{1}{n}C\pars{n, k}
+    \<=
+    \commentaire{Extraction de valeur constante de la sommation}
+    \frac{1}{n}\sum\limits_{k=0}^{n-1} C\pars{n, k}
+    \<=
+    \commentaire{Définition de $C\pars{n, k}$}
+    \frac{1}{n}\sum\limits_{k=0}^{n-1} \sum\limits_{i=1}^{k^2} 1
+    \<=
+    \commentaire{Règle de sommation}
+    \frac{1}{n}\sum\limits_{k=0}^{n-1} \pars{k^2 - 1 + 1} \cdot 1
+    \<=
+    \commentaire{Simplification}
+    \frac{1}{n}\sum\limits_{k=0}^{n-1} k^2
+    \<=
+    \commentaire{Règle de sommation}
+    \frac{1}{n}\frac{\pars{n-1}\pars{n-1+1}\pars{2\pars{n-1}+1}}{6}
+    \<=
+    \commentaire{Simplification}
+    \frac{1}{n}\frac{\pars{n-1}\pars{n}\pars{2n-2+1}}{6}
+    \<=
+    \commentaire{Simplification}
+    \frac{\pars{n-1}\pars{n}\pars{2n-1}}{6n}
+    \<=
+    \commentaire{Simplification}
+    \frac{\pars{n-1}\pars{2n-1}}{6}
+    \<=
+    \commentaire{Étendre le polynôme}
+    \frac{2n^2-3n + 1}{6}
+    \<=
+    \commentaire{Répartir la fraction}
+    \frac{2n^2}{6}-\frac{3n}{6}+\frac{1}{6}
+    \<=
+    \commentaire{Simplification}
+    \frac{n^2}{3}-\frac{n}{2}+\frac{1}{6}
+\end{deriv}
+
+
+\subsubsection*{Calcul de $\Omega$}
+\begin{deriv}
+    C_{worst}\pars{n}
+    \<=
+    \commentaire{Définition plus haut}
+    \frac{n^2}{3}-\frac{n}{2}+\frac{1}{6}
+    \<\leq
+    \commentaire{Retirer la soustraction}
+    \frac{n^2}{3}+\frac{1}{6}
+    \<\in
+    \commentaire{Règle du maximum et définition de $\Omega$}
+    \Omega\pars{n^2}
+\end{deriv}
+
+\subsubsection*{Calcul de $\BigO$}
+\begin{deriv}
+    C_{worst}\pars{n}
+    \<=
+    \commentaire{Définition plus haut}
+    \frac{n^2}{3}-\frac{n}{2}+\frac{1}{6}
+    \<\geq
+    \commentaire{Retirer l'addition d'une constante}
+    \frac{n^2}{3}-\frac{n}{2}
+    \<= 
+    \commentaire{Remettre sur un diviseur commun}
+    \frac{2n^2}{6}-\frac{3n}{6}
+    \<= 
+    \commentaire{Mettre en évidance le diviseur.}
+    \frac{1}{6}\pars{2n^2-3n}
+    \<\geq 
+    \commentaire{$\forall n \geq 3$}
+    \frac{1}{6}\pars{2n^2-n^2}
+    \<=
+    \commentaire{Simplification}
+    \frac{1}{6}\pars{n^2}
+    \<\in
+    \commentaire{Définition de $\BigO$}
+    \BigO\pars{n^2}
+\end{deriv}
+
+\subsubsection*{Définition de $\Theta$}
+Puisque $C_{worst}\pars{n} \in \Omega\pars{n^2}$ et $C_{worst}\pars{n} \in \BigO\pars{n^2}$,
+$C_{worst}\pars{n} \in \Theta\pars{n^2}$
 
 \end{document} 
