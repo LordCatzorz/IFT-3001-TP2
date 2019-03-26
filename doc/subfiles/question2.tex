@@ -41,9 +41,10 @@ La cellule $M[0, j, k] = -1$
         -1 & \text{si } i = 0 \wedge \pars{j \neq 0 \vee k \neq 0} \\
         M(i-1, j, k) & \text{si } j-a_i < 0 \\
         M(i-1, j, k) & \text{si } k-b_i < 0 \\
-        M(i-1, j, k) & \text{si } M.at(i, j-a_i, k-b_i) == -1 \\
-        M(i, j-a_i, k-b_i) + c_i & \text{si } M.at(i-1, j, k) == -1 \\
-        \min(M(i, j-a_i, k-b_i) + c_i, M(i-1, j, k))  & \text{sinon } \\
+        M(i-1, j, k) & \text{si } M(i, j-a_i, k-b_i) == -1 \\
+        M(i, j-a_i, k-b_i) + c_i & \text{si } M(i-1, j, k) == -1 \\
+        \min(M(i, j-a_i, k-b_i) + c_i,& \text{sinon }    \\
+            M(i-1, j, k))
     \end{cases}
 \]
 
