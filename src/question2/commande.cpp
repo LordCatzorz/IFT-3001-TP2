@@ -70,7 +70,6 @@ Tableau<int> GenererTableau(const vector<ItemMenu> &menu, unsigned int nbAiles, 
                             pf = std::min(p2 + ci, p1);
                         }
                          M.at(i, j, k) = pf;
-                        
                     }
                 }
             }
@@ -98,7 +97,7 @@ vector<ItemMenu> commander(const vector<ItemMenu> &menu, unsigned int nbAiles, u
     {
         int currentValue = M.at(i, j, k);
         int valueLessItem = M.at(i-1, j, k);
-        if (currentValue > valueLessItem)
+        if (currentValue != valueLessItem)
         {
             // menu commence à l'index 0 pour l'item 1
             ItemMenu item = menu.at(i-1);
