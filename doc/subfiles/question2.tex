@@ -37,13 +37,11 @@ La cellule $M[0, j, k] = \infty$ ($\forall j, k \in \Natural | j + k > 0$)
 \subsection*{Récurrence}
 
 \[
-    M(i, j, k) =
+    M\crochs{i, j, k} =
     \begin{cases}
-        0 & \text{si } i=j=k=0 \\
-        \infty & \text{si } i=0\wedge \pars{j \neq 0 \vee k \neq 0} \\
-        M(i-1, j, k) & \text{si } j-a_i < 0 \\
-        M(i-1, j, k) & \text{si } k-b_i < 0 \\
-        \min(M(i, j-a_i, k-b_i) + c_i, M(i-1, j, k)) & \text{sinon }
+        M\crochs{i-1, j, k} & \text{si } k-b_i < 0 \\
+        M\crochs{i-1, j, k} & \text{si } j-a_i < 0 \\
+        \min(M\crochs{i, j-a_i, k-b_i} + c_i, M\crochs{i-1, j, k}) & \text{sinon }
     \end{cases}
 \]
 
