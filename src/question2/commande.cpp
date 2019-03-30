@@ -7,7 +7,7 @@ using namespace std;
 
 typedef float ctableau; //Type "Contenu de case de tableau"
 
-Tableau<ctableau> GenererTableau(const vector<ItemMenu> &menu, unsigned int nbAiles, unsigned int nbBieres)
+Tableau<ctableau> genererTableau(const vector<ItemMenu> &menu, unsigned int nbAiles, unsigned int nbBieres)
 {
     const unsigned int MaxI = menu.size() +1;
     const unsigned int MaxJ = nbAiles + 1;
@@ -106,7 +106,7 @@ vector<ItemMenu> trouverSolutionAuTableau(const vector<ItemMenu> &menu, unsigned
 vector<ItemMenu> commander(const vector<ItemMenu> &menu, unsigned int nbAiles, unsigned int nbBieres)
 {
     // Insérer votre code ici
-    Tableau<ctableau> M = GenererTableau(menu, nbAiles, nbBieres);
+    Tableau<ctableau> M = genererTableau(menu, nbAiles, nbBieres);
     return trouverSolutionAuTableau(menu, nbAiles, nbBieres, M);
 }
 
