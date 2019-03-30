@@ -61,7 +61,7 @@ Tableau<ctableau> genererTableau(const vector<ItemMenu> &menu, unsigned int nbAi
                     {
                         ctableau p1 = M.at(i-1, j, k); //Prix en ne prenant pas en compte ce menu.
                         ctableau p2 = M.at(i, prevai, prevbi) + ci; // Prix en prenant compte de ce menu.
-                        M.at(i, j, k) = std::min(p1, p2);
+                        M.at(i, j, k) = std::min(p1, p2); //Cas 5 de la récurrence
                     }
                 }
             }
