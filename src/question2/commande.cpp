@@ -70,26 +70,21 @@ Tableau<ctableau> GenererTableau(const vector<ItemMenu> &menu, unsigned int nbAi
     return M;
 }
 
-// Retourne la liste d'items commandés. La somme des ailes doit être d'exactement nbAiles et la somme des pintes de
-// bière doit être exactement nbBieres. Un item peut être commandé plusieurs fois. Pour ce faire, il suffit de le
-// mettre deux fois dans le vecteur. Le prix de la commande doit être le plus petit possible.
-vector<ItemMenu> commander(const vector<ItemMenu> &menu, unsigned int nbAiles, unsigned int nbBieres)
+vector<ItemMenu> trouverSolutionAuTableau(const vector<ItemMenu> &menu, unsigned int nbAiles, unsigned int nbBieres, Tableau<ctableau> tableauM)
 {
-    // Insérer votre code ici
-    Tableau<ctableau> M = GenererTableau(menu, nbAiles, nbBieres);
     vector<ItemMenu> resultV = vector<ItemMenu>();
     unsigned int i =  menu.size();
     unsigned int j = nbAiles; //ailes restantes
     unsigned int k = nbBieres; //bieres restantes
     
-    if (M.at(i, j, k) == std::numeric_limits<ctableau>::infinity())
+    if (tableauM.at(i, j, k) == std::numeric_limits<ctableau>::infinity())
     {
         return resultV;; // Si on a -1, la solution n'est pas possible.
     }
     while (i > 0)
     {
-        ctableau currentValue = M.at(i, j, k);
-        ctableau valueLessItem = M.at(i-1, j, k);
+        ctableau currentValue = tableauM.at(i, j, k);
+        ctableau valueLessItem = tableauM.at(i-1, j, k);
         if (currentValue != valueLessItem)
         {
             // menu commence à l'index 0 pour l'item 1
@@ -103,6 +98,16 @@ vector<ItemMenu> commander(const vector<ItemMenu> &menu, unsigned int nbAiles, u
     }
 
     return resultV;
+}
+
+// Retourne la liste d'items commandés. La somme des ailes doit être d'exactement nbAiles et la somme des pintes de
+// bière doit être exactement nbBieres. Un item peut être commandé plusieurs fois. Pour ce faire, il suffit de le
+// mettre deux fois dans le vecteur. Le prix de la commande doit être le plus petit possible.
+vector<ItemMenu> commander(const vector<ItemMenu> &menu, unsigned int nbAiles, unsigned int nbBieres)
+{
+    // Insérer votre code ici
+    Tableau<ctableau> M = GenererTableau(menu, nbAiles, nbBieres);
+    return trouverSolutionAuTableau(menu, nbAiles, nbBieres, M);
 }
 
 
