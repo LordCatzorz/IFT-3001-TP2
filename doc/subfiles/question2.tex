@@ -25,26 +25,25 @@ La troisième dimension va de 0 jusqu'au nombre de bières commandées.
 \subsection*{Définition d'une cellule}
 
 La cellule $M[i,j,k]$ contient le prix minimum pour une commande de j ailes et k bières.
-Elle contient -1 si cette combinaisons de j ailes et k bières est impossible.
+Elle contient l'infini si cette combinaisons de j ailes et k bières est impossible.
 
 
 \subsection*{Conditions initiales}
 
-La cellule $M[0, j, k] = -1$
+La cellule $M[0, 0, 0] = 0$
+
+La cellule $M[0, j, k] = \infty$ ($\forall j, k \in \Natural | j + k > 0$)
 
 \subsection*{Récurrence}
 
 \[
     M(i, j, k) =
     \begin{cases}
-        0 & \text{si } i = j = k = 0 \\
-        -1 & \text{si } i = 0 \wedge \pars{j \neq 0 \vee k \neq 0} \\
+        0 & \text{si } i=j=k=0 \\
+        \infty & \text{si } i=0\wedge \pars{j \neq 0 \vee k \neq 0} \\
         M(i-1, j, k) & \text{si } j-a_i < 0 \\
         M(i-1, j, k) & \text{si } k-b_i < 0 \\
-        M(i-1, j, k) & \text{si } M(i, j-a_i, k-b_i) == -1 \\
-        M(i, j-a_i, k-b_i) + c_i & \text{si } M(i-1, j, k) == -1 \\
-        \min(M(i, j-a_i, k-b_i) + c_i,& \text{sinon }    \\
-            M(i-1, j, k))
+        \min(M(i, j-a_i, k-b_i) + c_i, M(i-1, j, k)) & \text{sinon }
     \end{cases}
 \]
 

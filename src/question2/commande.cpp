@@ -5,8 +5,9 @@
 
 using namespace std;
 
+typedef float ctableau; //Type "Contenu de case de tableau"
 
-Tableau<int> GenererTableau(const vector<ItemMenu> &menu, unsigned int nbAiles, unsigned int nbBieres)
+Tableau<ctableau> GenererTableau(const vector<ItemMenu> &menu, unsigned int nbAiles, unsigned int nbBieres)
 {
     const unsigned int MaxI = menu.size() +1;
     const unsigned int MaxJ = nbAiles + 1;
@@ -20,7 +21,7 @@ Tableau<int> GenererTableau(const vector<ItemMenu> &menu, unsigned int nbAiles, 
     int prevbi = -1;
 
     unsigned int dimensions[3] = {MaxI, MaxJ, MaxK};
-    Tableau<int> M(std::vector<unsigned int>(dimensions, dimensions + 3));
+    Tableau<ctableau> M(std::vector<unsigned int>(dimensions, dimensions + 3));
 
     for (int i = 0; i < MaxI; i++)
     {
@@ -36,7 +37,7 @@ Tableau<int> GenererTableau(const vector<ItemMenu> &menu, unsigned int nbAiles, 
                     }
                     else
                     {
-                        M.at(i, j, k) = -1;
+                        M.at(i, j, k) = std::numeric_limits<ctableau>::infinity(); // Cas 2 de la récurrence
                     }
                 }
                 else
@@ -50,26 +51,17 @@ Tableau<int> GenererTableau(const vector<ItemMenu> &menu, unsigned int nbAiles, 
                     prevbi = k - bi;
                     if (prevai < 0)
                     {
-                        M.at(i, j, k) = M.at(i-1, j, k); //Cas 2 de la récurrence
+                        M.at(i, j, k) = M.at(i-1, j, k); //Cas 3 de la récurrence
                     }
                     else if (prevbi < 0)
                     {
-                        M.at(i, j, k) = M.at(i-1, j, k); //Cas 3 de la récurrence
+                        M.at(i, j, k) = M.at(i-1, j, k); //Cas 4 de la récurrence
                     }
                     else
                     {
-                        int p1 = M.at(i-1, j, k);
-                        int p2 = M.at(i, prevai, prevbi);
-                        int pf = -1;
-                        if (p2 == -1)
-                        {
-                            pf = p1;
-                        } else if (p1 == -1) {
-                            pf = p2 + ci;
-                        } else {
-                            pf = std::min(p2 + ci, p1);
-                        }
-                         M.at(i, j, k) = pf;
+                        ctableau p1 = M.at(i-1, j, k); //Prix en ne prenant pas en compte ce menu.
+                        ctableau p2 = M.at(i, prevai, prevbi) + ci; // Prix en prenant compte de ce menu.
+                        M.at(i, j, k) = std::min(p1, p2);
                     }
                 }
             }
@@ -84,19 +76,20 @@ Tableau<int> GenererTableau(const vector<ItemMenu> &menu, unsigned int nbAiles, 
 vector<ItemMenu> commander(const vector<ItemMenu> &menu, unsigned int nbAiles, unsigned int nbBieres)
 {
     // Insérer votre code ici
-    Tableau<int> M = GenererTableau(menu, nbAiles, nbBieres);
+    Tableau<ctableau> M = GenererTableau(menu, nbAiles, nbBieres);
     vector<ItemMenu> resultV = vector<ItemMenu>();
+    unsigned int i =  menu.size();
     unsigned int j = nbAiles; //ailes restantes
     unsigned int k = nbBieres; //bieres restantes
-    unsigned int i =  menu.size();
-    if (M.at(i, j, k) == -1)
+    
+    if (M.at(i, j, k) == std::numeric_limits<ctableau>::infinity())
     {
         return resultV;; // Si on a -1, la solution n'est pas possible.
     }
     while (i > 0)
     {
-        int currentValue = M.at(i, j, k);
-        int valueLessItem = M.at(i-1, j, k);
+        ctableau currentValue = M.at(i, j, k);
+        ctableau valueLessItem = M.at(i-1, j, k);
         if (currentValue != valueLessItem)
         {
             // menu commence à l'index 0 pour l'item 1
