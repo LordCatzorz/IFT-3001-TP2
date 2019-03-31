@@ -41,7 +41,7 @@ La cellule $M[0, j, k] = \infty$ ($\forall j, k \in \Natural | j + k > 0$)
     \begin{cases}
         M\crochs{i-1, j, k} & \text{si } k-b_i < 0 \\
         M\crochs{i-1, j, k} & \text{si } j-a_i < 0 \\
-        \min(M\crochs{i, j-a_i, k-b_i} + c_i, M\crochs{i-1, j, k}) & \text{sinon }
+        \min\pars{M\crochs{i, j-a_i, k-b_i} + c_i, M\crochs{i-1, j, k}} & \text{sinon }
     \end{cases}
 \]
 
@@ -59,7 +59,88 @@ chacune des fonctions et nous pourrons donner notre réponse selon le maximum de
 Le temps d'exécution de l'algorithme dépend du nombre d'item $n$ dans le menu,
 le nombre d'ailes $a$ à commandées et le nombre de pintes de bières $b$ commandées.
 
-L'opération de base est la comparaison \lstinline{i==0}
+Nous devons séparer l'analyse en plusieurs blocs, puisqu'il y a des appels de fonction.
 
+\subsubsection*{Bloc A}
+
+Le bloc A est tout ce qui se trouve à dessus des boucles \lstinline{for}.
+
+Nous avons deux appels de fonction ici. Un appel à \lstinline{vector::size} et au constructeur
+de \lstinline{Tableau::Tableau}
+
+Ils sont tout les deux exécuté une seule fois.
+
+L'appel à \lstinline{vector::size} ce fait en tant constant $\Theta\pars{1}$.
+
+L'appel à \lstinline{Tableau::Tableau} ce fait en temps linéaire sur le nombre de cas du tableau.
+Il n'y a pas de pire cas.
+Dans notre cas, il se fait donc en tout temps à une complexité de
+\begin{deriv}
+\Theta\pars{(n+1)*(a+1)*(b+1)}
+\<= 
+\commentaire{Étendre polynôme}
+\Theta\pars{nab+na+nb+ab+n+a+b+1} 
+\<= 
+\commentaire{Règle du maximum}
+\Theta\pars{nab} 
+\end{deriv}
+
+Donc, le bloc A a une complexité de $\Theta\pars{\max\pars{1 + nab}} = \Theta\pars{nab}$
+
+
+\subsubsection*{Bloc B}
+
+Le bloc B est constitué de la boucle \lstinline{for} et de ces sous-boucles.
+
+L'opération de base est la comparaison \lstinline{i == 0}, car c'est l'opération
+exécuter le plus souvent et que tout les appels de fonction se font en temps constant,
+incluant \lstinline{Tableau::at}.
+
+Il n'y a pas de pire cas.
+
+Le nombre de fois que cette opération peut être exécuter nous est données par 
+la sommation suivante:
+
+\begin{deriv}
+    C^B\pars{n, a, b}
+    \<=
+    \commentaire{Définition de la sommation selon l'algorithme}
+    \sum\limits_{i=0}^{n}\sum\limits_{j=0}^{a}\sum\limits_{k=0}^{b} 1
+    \<=
+    \commentaire{Règle de sommation}
+    \sum\limits_{i=0}^{n}\sum\limits_{j=0}^{a}\pars{\pars{b-0+1} \cdot 1}
+    \<=
+    \commentaire{Simplification}
+    \sum\limits_{i=0}^{n}\sum\limits_{j=0}^{a}\pars{b+1}
+    \<=
+    \commentaire{Règle de sommation}
+    \sum\limits_{i=0}^{n}\pars{\pars{a - 0 + 1} \cdot \pars{b + 1}}
+    \<=
+    \commentaire{Simplification}
+    \sum\limits_{i=0}^{n}\pars{\pars{a + 1} \cdot \pars{b + 1}}
+    \<=
+    \commentaire{Règle de sommation}
+    \pars{n-0+1} \cdot \pars{\pars{a + 1} \cdot \pars{b + 1}}
+    \<=
+    \commentaire{Simplification}
+    \pars{n+1} \cdot \pars{a+1} \cdot \pars{b+1}
+    \<=
+    \commentaire{Simplification}
+    nab+na+nb+ab+n+a+b+1
+    \<\in
+    \commentaire{Notation aymptotique}
+    \Theta\pars{nab+na+nb+ab+n+a+b+1}
+    \<=
+    \commentaire{Règle du maximum}
+    \Theta\pars{nab}
+\end{deriv}
+
+\subsubsection*{Conclusion}
+
+Puisque le bloc A a une complexité de $\Theta\pars{nab}$ et
+le bloc B une complexité de $\Theta\pars{nab}$, la fonction genererTableau
+a une complexité de $\Theta\pars{nab}$, selon la règle du maximum.
+
+\section*{Analyse de la fonction solutionnerTableau}
 
 \end{document} 

@@ -70,7 +70,7 @@ Tableau<ctableau> genererTableau(const vector<ItemMenu> &menu, unsigned int nbAi
     return M;
 }
 
-vector<ItemMenu> trouverSolutionAuTableau(const vector<ItemMenu> &menu, unsigned int nbAiles, unsigned int nbBieres, Tableau<ctableau> tableauM)
+vector<ItemMenu> solutionnerTableau(const vector<ItemMenu> &menu, unsigned int nbAiles, unsigned int nbBieres, Tableau<ctableau> tableauM)
 {
     vector<ItemMenu> resultV = vector<ItemMenu>();
     unsigned int i =  menu.size();
@@ -107,7 +107,7 @@ vector<ItemMenu> commander(const vector<ItemMenu> &menu, unsigned int nbAiles, u
 {
     // Insérer votre code ici
     Tableau<ctableau> M = genererTableau(menu, nbAiles, nbBieres);
-    return trouverSolutionAuTableau(menu, nbAiles, nbBieres, M);
+    return solutionnerTableau(menu, nbAiles, nbBieres, M);
 }
 
 
