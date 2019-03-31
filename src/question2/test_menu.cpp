@@ -154,6 +154,7 @@ void testBizarre () {
 void grosTest () {
     vector<ItemMenu> menu = {
             {0, 1, 4},
+            {0, 1, 4},
             {1, 0, 20},
             {1, 1, 5},
             {5, 3, 15},
@@ -169,10 +170,16 @@ void grosTest () {
 
 
 int main(int argc, char** argv) {
-    testSimple();
-    testAlcoolique();
-    testEnonce();
-    testBizarre();
-    grosTest();
+    vector<ItemMenu> menu = {
+        {0, 1, 0},
+        {1, 0, 0},
+    };
+    commander(menu, 5, 5);
+
+    // testSimple();
+    // testAlcoolique();
+    // testEnonce();
+    // testBizarre();
+    // grosTest();
     return 0;
 }

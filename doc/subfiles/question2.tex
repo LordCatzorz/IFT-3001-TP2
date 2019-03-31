@@ -46,7 +46,7 @@ La cellule $M[0, j, k] = \infty$ ($\forall j, k \in \Natural | j + k > 0$)
 \]
 
 
-\section*{Analyse de la fonction commande}
+\section*{Analyse de la fonction \lstinline{commande}}
 
 Le temps d'exécution de l'algorithme dépend du nombre d'item $n$ dans le menu,
 le nombre d'ailes $a$ à commandées et le nombre de pintes de bières $b$ commandées.
@@ -54,7 +54,7 @@ le nombre d'ailes $a$ à commandées et le nombre de pintes de bières $b$ comma
 Cette méthode est composée de deux appels à des fonctions. Nous analyserons donc
 chacune des fonctions et nous pourrons donner notre réponse selon le maximum des deux.
 
-\subsection*{Analyse de la fonction genererTableau }
+\subsection*{Analyse de la fonction \lstinline{genererTableau} }
 
 Le temps d'exécution de l'algorithme dépend du nombre d'item $n$ dans le menu,
 le nombre d'ailes $a$ à commandées et le nombre de pintes de bières $b$ commandées.
@@ -102,7 +102,7 @@ Le nombre de fois que cette opération peut être exécuter nous est données pa
 la sommation suivante:
 
 \begin{deriv}
-    C^B\pars{n, a, b}
+    C_{genererTableau}^B\pars{n, a, b}
     \<=
     \commentaire{Définition de la sommation selon l'algorithme}
     \sum\limits_{i=0}^{n}\sum\limits_{j=0}^{a}\sum\limits_{k=0}^{b} 1
@@ -141,6 +141,112 @@ Puisque le bloc A a une complexité de $\Theta\pars{nab}$ et
 le bloc B une complexité de $\Theta\pars{nab}$, la fonction genererTableau
 a une complexité de $\Theta\pars{nab}$, selon la règle du maximum.
 
-\section*{Analyse de la fonction solutionnerTableau}
+$C_{genererTableau} = \Theta\pars{nab}$
+
+\section*{Analyse de la fonction \lstinline{solutionnerTableau}}
+
+Le temps d'exécution de l'algorithme dépend du nombre d'item $n$ dans le menu,
+le nombre d'ailes $a$ à commandées et le nombre de pintes de bières $b$ commandées
+et du tableau $M$.
+
+L'opération de base est la comparaison \lstinline{i > 0} puisque c'est l'opération
+la plus exécuter et puisque les fonctions appelés sont tous de complexité constante
+ou constante amortie. 
+
+Il y a un meilleur et un pire cas, dépendapement du contenu du tableau $M$.
+
+\subsection*{Meilleur cas}
+
+Le meilleur cas est quand l'élément à la position $M[n,a,b]$ a une valeur infini.
+
+Dans ce cas, l'opération est exécutée 0 fois et la complexité est définie par:
+$C^{solutionnerTableau}_{best} = 0 \in \Theta\pars{1}$
+
+\subsection*{Pire cas}
+
+Le pire cas est quand un élément du menu donne des ailes gratuite, sans pintes de bières
+et qu'un autre donne des bières gratuite sans ailes de poulet.
+
+Ceci fait en sorte de constuire un tableau tel que l'on ne pourra bouger que d'une case
+dans une dimensions à la fois.
+
+La valeur de la complexité peut être donnée par la récurrence suivante:
+
+\[
+    M\pars{n, a, b} =
+    \begin{cases}
+        1 & \text{si } n == 0 \\
+        1 + M\pars{n, a, b-1} & \text{si } b > 0 \\
+        1 + M\pars{n, a-1, 0} & \text{si } b == 0 \wedge a > 1 \\
+        1 + M\pars{n-1, 0, 0} & \text{si } b == 0 \wedge a == 0 \wedge n > 1 \\
+    \end{cases}
+\]
+
+
+On peut la résoudre ainsi:
+\begin{deriv}
+    M\pars{n, a, b}
+    \<= 
+    \commentaire{Récurrence pour réduire $b$ (cas 2)}
+    1 + M\pars{n, a, b - 1}
+    \<= 
+    1 + 1 + M\pars{n, a, b - 1 - 1}
+    \<= 
+    1 + 1 + 1 + M\pars{n, a, b - 1 - 1 - 1}
+    \<= 
+    k + M\pars{n, a, b - k}
+    \<= 
+    b + M\pars{n, a, b - b}
+    \<= 
+    b + M\pars{n, a, 0}
+    \<= 
+    \commentaire{Récurrence pour réduire $a$ (cas 3)}
+    b + 1 + M\pars{n, a - 1, 0}
+    \<= 
+    b + 1 + 1 + M\pars{n, a - 1 - 1, 0}
+    \<= 
+    b + 1 + 1 + 1+ M\pars{n, a - 1 - 1 - 1, 0}
+    \<= 
+    b + j + M\pars{n, a - j, 0}
+    \<= 
+    b + a + M\pars{n, a - a, 0}
+    \<= 
+    b + a + M\pars{n, 0, 0}
+    \<= 
+    \commentaire{Récurrence pour réduire $n$ (cas 4)}
+    b + a + 1 + M\pars{n - 1, 0, 0}
+    \<= 
+    b + a + 1  + 1 + M\pars{n - 1 - 1, 0, 0}
+    \<= 
+    b + a + 1 + 1 + 1 + M\pars{n - 1- 1 - 1, 0, 0}
+    \<= 
+    b + a + i + M\pars{n - i, 0, 0}
+    \<= 
+    b + a + n + M\pars{n - n, 0, 0}
+    \<= 
+    b + a + n + M\pars{0, 0, 0}
+    \<= 
+    \commentaire{Cas de base (cas 1)}
+    b + a + n + 1
+    \<\in
+    \Theta\pars{b + a + n + 1}
+    \<=
+    \Theta\pars{b + a + n}
+\end{deriv}
+
+
+Donc, en pire cas, l'algorithme de solution s'execute en $\Theta\pars{b + a + n}$
+
+\section*{Retour sur la fonction \lstinline{commande}}
+
+Puisque la complexité fonction \lstinline{solutionnerTableau} 
+est au plus de $\Theta\pars{n + a + b}$, alors que la complexité 
+de la fonction \lstinline{genererTableau} est en $\Theta\pars{nab}$,
+
+Puisque $\Theta\pars{nab} > \Theta\pars{n + a + b}
+\forall n, a, b | n > 1 \wedge a > 1 \wedge b > 1$,
+
+Alors, la complexité de \lstinline{commande} est $\Theta\pars{nab}$
+
 
 \end{document} 
