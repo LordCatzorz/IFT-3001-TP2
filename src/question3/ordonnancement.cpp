@@ -94,7 +94,7 @@ void ordonnancement(const std::vector<unsigned int>& temps_sortie, const std::ve
     assert(temps_sortie[i] <= echeances[i]);
     assert(echeances[i] < nb_travaux);
   }
-  
+
   // Inserez votre code ici.
   std::vector<Travail*> travaux;
   for(uint i = 0; i < nb_travaux; i++)
@@ -105,12 +105,22 @@ void ordonnancement(const std::vector<unsigned int>& temps_sortie, const std::ve
   std::function<uint(const Travail*)> f2 = [] (const Travail* t) { return t->GetJourAnnonce();};
 
   std::vector<Travail*> sol;
+  std::vector<Travail*> jourAnnonce;
+  triParDenombrement(jourAnnonce, 0, nb_travaux - 1, travaux, f2);
   triParDenombrement(sol, 0, nb_travaux - 1, travaux, f1);
-
+  std::vector<std::tuple<int, Travail*>> vec;
+  uint positionJourAnnonce = 0; 
   solution.resize(nb_travaux);
-
-  for(uint i = 0; i < nb_travaux; i++)
+  for(int jourEnCours = 0; jourEnCours < nb_travaux; jourEnCours++)
   {
-    solution.at(sol[i]->GetNumero()) = i;
+    while (positionJourAnnonce < nb_travaux && jourAnnonce.at(positionJourAnnonce)->GetJourAnnonce() <= jourEnCours)
+    {
+      vec.push_back(std::make_tuple(jourAnnonce.at(positionJourAnnonce)->GetJourDu(), jourAnnonce.at(positionJourAnnonce)));
+      std::push_heap(vec.begin(), vec.end(), std::greater<std::tuple<int, Travail*>>());
+      positionJourAnnonce++;
+    }
+    std::pop_heap(vec.begin(), vec.end(), std::greater<std::tuple<int, Travail*>>());
+    solution.at(std::get<1>(vec.back())->GetNumero()) = jourEnCours;
+    vec.pop_back();
   }
 }
