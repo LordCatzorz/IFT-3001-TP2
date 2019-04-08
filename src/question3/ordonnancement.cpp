@@ -101,13 +101,12 @@ void ordonnancement(const std::vector<unsigned int>& temps_sortie, const std::ve
   {
     travaux.emplace_back(new Travail(i, temps_sortie[i], echeances[i]));
   }
-  std::function<uint(const Travail*)> f1 = [] (const Travail* t) { return t->GetJourDu();};
+  //std::function<uint(const Travail*)> f1 = [] (const Travail* t) { return t->GetJourDu();};
   std::function<uint(const Travail*)> f2 = [] (const Travail* t) { return t->GetJourAnnonce();};
 
-  std::vector<Travail*> sol;
   std::vector<Travail*> jourAnnonce;
   triParDenombrement(jourAnnonce, 0, nb_travaux - 1, travaux, f2);
-  triParDenombrement(sol, 0, nb_travaux - 1, travaux, f1);
+
   std::vector<std::tuple<int, Travail*>> vec;
   uint positionJourAnnonce = 0; 
   solution.resize(nb_travaux);
