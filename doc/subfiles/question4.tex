@@ -51,7 +51,7 @@ Le certificat à la forme (($G_1$, $G_2$), ($V^\prime$)) où :
       }
       else
       {
-        setValeurG1 := setValeurG1 union {vp1[i]}
+        setValeurG1 := setValeurG1.add(vp1[i])
       }
     }
 
@@ -63,7 +63,7 @@ Le certificat à la forme (($G_1$, $G_2$), ($V^\prime$)) où :
       }
       else
       {
-        setValeurG2 := setValeurG1 union {vp2[i]}
+        setValeurG2 := setValeurG1.add(vp2[i])
       }
     }
 
