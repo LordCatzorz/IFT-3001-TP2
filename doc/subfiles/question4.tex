@@ -5,4 +5,134 @@
 \centerline{\Huge \bf Question 4}
 \bigskip
 
+\section*{Le problème est-il dans NP?}
+\subsection*{Définition du certificat}
+
+Le certificat à la forme (($G_1$, $G_2$), ($V^\prime$)) où :
+\begin{itemize}
+  \item $G_1$ est un graphe $\chevs{V_1, E_1}$ où $V_1$ est un vecteur de sommets et où $v_i \in V_1$ ne sont pas numérotés.
+  \item $G_2$ est un graphe $\chevs{V_2, E_2}$ où $V_2$ est un vecteur de sommets et où $v_i \in V_2$ ne sont pas numérotés.
+  \item $V^\prime$ est un vecteur d'entier de longueur $|V_1| + |V_2|$.
+  \item Les $|V_1|$ premier entiers de $V^\prime$ ont des valeurs entières différentes.
+  \item Les $|V_2|$ derniers entiers de $V^\prime$ ont des valeurs entières différentes.
+  \item Si $|V_1| \leq |V_2|$, alors toutes les valeurs entières 
+        des $|V_1|$ premier entiers de $V^\prime$ se retrouve aussi 
+        dans les $|V_2|$ derniers entiers.
+  \item Si $|V_2| \leq |V_2|$, alors toutes les valeurs entières 
+        des $|V_2|$ derniers entiers de $V^\prime$ se retrouve aussi 
+        dans les $|V_1|$ premiers entiers.
+  \item La valeur $i$ présente à la fois dans les deux sections, représente deux noeuds
+        ayant les mêmes arrêts dans $E_1$ et $E_2$.
+\end{itemize}
+
+\subsection*{Pseudo-code de vérification}
+
+\begin{lstlisting}
+  Verification(g1, g2: graphe, vp1, vp2: vector<int>)
+  {
+    if vp1.count != g1.vertices.count
+    {
+      return false
+    }
+    
+    if vp2.count != g2.vertices.count
+    {
+      return false
+    }
+
+    setValeurG1 := new set<int>
+    setValeurG2 := new set<int>
+
+    for i := 0 to vp1.count -1
+    {
+      if (setValeurG1 intersect {vp1[i]}).count > 0
+      {
+        return false /* 2 fois meme nombre pour resultat g1*/
+      }
+      else
+      {
+        setValeurG1 := setValeurG1 union {vp1[i]}
+      }
+    }
+
+    for i := 0 to vp2.count -1 
+    {
+      if (setValeurG2 intersect {vp2[i]}).count > 0
+      {
+        return false /* 2 fois meme nombre pour resultat g2*/
+      }
+      else
+      {
+        setValeurG2 := setValeurG1 union {vp2[i]}
+      }
+    }
+
+    minvp := null
+
+    if (g1.vertices.count <= g2.vertices.count)
+    {
+      minvp := vp1
+    }
+    else
+    {
+      minvp := vp2
+    }
+    
+    if (setValeurG1 intersect setValeurG2).count 
+          != minvp.count)
+    {
+      return false; /* Tout les element du plus petit graphe 
+                    ne sont pas present dans le plus gros */
+    }
+    
+    for (i := 0 to minvp.count -1)
+    {
+      label := vp1[i];
+      index2 := vp2.posof(label)
+      vertex1 := g1.vertices[i]
+      vertex2 := g2.vertices[index2]
+
+      otherVertices1 = new set<vertex>
+      for (j := 0 to vp1.edges.count -1)
+      {
+        if vp1.edges[j].first == vertex1
+        {
+          otherVertices1.add(vp1.edges[j].second)
+        }
+        else if vp1.edges[j].second == vertex1
+        {
+          otherVertices1.add(vp1.edges[j].first)
+        }
+      }
+      
+      otherVertices2 = new set<vertex>
+      for (j := 0 to vp2.edges.count -1)
+      {
+        if vp2.edges[j].first == vertex1
+        {
+          otherVertices2.add(vp2.edges[j].second)
+        }
+        else if vp2.edges[j].second == vertex1
+        {
+          otherVertices2.add(vp2.edges[j].first)
+        }
+      }
+
+      if (otherVertices1.count != otherVertices2.count)
+      {
+        return false;
+      }
+
+      if (otherVertices1 intersect otherVertices2).count
+          != otherVertices1.count
+      {
+        return false;
+      }
+    }
+
+    return true;
+  }
+\end{lstlisting}
+
+
 \end{document}
