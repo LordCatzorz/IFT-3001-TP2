@@ -40,31 +40,31 @@ Le certificat à la forme (($G_1$, $G_2$), ($V^\prime$)) où :
       return false
     }
 
-    setValeurG1 := new set<int>
-    setValeurG2 := new set<int>
+    valeurG1 := new vector<int>
+    valeurG2 := new vector<int>
 
     for i := 0 to vp1.count -1
     {
-      if (setValeurG1 intersect {vp1[i]}).count > 0
+      for(j = 0 to valeurG1.count - 1)
       {
-        return false /* 2 fois meme nombre pour resultat g1*/
+        if valeurG1[j] == vp1[i]
+        {
+          return false /* 2 fois meme nombre dans g1*/
+        }
       }
-      else
-      {
-        setValeurG1 := setValeurG1.add(vp1[i])
-      }
+      valeurG1.add(vp1[i])
     }
 
     for i := 0 to vp2.count -1 
     {
-      if (setValeurG2 intersect {vp2[i]}).count > 0
+      for(j := 0 to valeurG1.count - 1)
       {
-        return false /* 2 fois meme nombre pour resultat g2*/
+        if valeurG2[j] == vp2[i]
+        {
+          return false /* 2 fois meme nombre dans g2*/
+        }
       }
-      else
-      {
-        setValeurG2 := setValeurG1.add(vp2[i])
-      }
+      valeurG2.add(vp2[i])
     }
 
     minvp := null
@@ -77,9 +77,21 @@ Le certificat à la forme (($G_1$, $G_2$), ($V^\prime$)) où :
     {
       minvp := vp2
     }
+
+    vectorIntersect := new vector<int>
+
+    for(i := 0 to valeurG1.count -1)
+    {
+      for(j := 0 to valeurG2.count -1)
+      {
+        if (valeurG1[i] == valeurG2[j])
+        {
+          vectorIntersect.add(valeurG1[i])
+        }
+      }
+    }
     
-    if (setValeurG1 intersect setValeurG2).count 
-          != minvp.count)
+    if vectorIntersect.count != minvp.count)
     {
       return false; /* Tout les element du plus petit graphe 
                     ne sont pas present dans le plus gros */
@@ -92,7 +104,7 @@ Le certificat à la forme (($G_1$, $G_2$), ($V^\prime$)) où :
       vertex1 := g1.vertices[i]
       vertex2 := g2.vertices[index2]
 
-      otherVertices1 = new set<vertex>
+      otherVertices1 = new vecor<vertex>
       for (j := 0 to vp1.edges.count -1)
       {
         if vp1.edges[j].first == vertex1
@@ -105,7 +117,7 @@ Le certificat à la forme (($G_1$, $G_2$), ($V^\prime$)) où :
         }
       }
       
-      otherVertices2 = new set<vertex>
+      otherVertices2 = new vector<vertex>
       for (j := 0 to vp2.edges.count -1)
       {
         if vp2.edges[j].first == vertex1
@@ -123,8 +135,20 @@ Le certificat à la forme (($G_1$, $G_2$), ($V^\prime$)) où :
         return false;
       }
 
-      if (otherVertices1 intersect otherVertices2).count
-          != otherVertices1.count
+      intersectCounter := 0
+
+      for(k := 0 to otherVertices1.count -1)
+      {
+        for(l := 0 to otherVertices2.count -1)
+        {
+          if (otherVertices1[i] == otherVertices2[j])
+          {
+            intersectCounter := intersectCounter + 1
+          }
+        }
+      }
+
+      if intersectCounter != otherVertices1.count
       {
         return false;
       }
