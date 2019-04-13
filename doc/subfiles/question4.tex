@@ -8,21 +8,21 @@
 \section*{Le problème est-il dans NP?}
 \subsection*{Définition du certificat}
 
-Le certificat à la forme (($G_1$, $G_2$), ($V^\prime$)) où :
+Le certificat à la forme (($G_1$, $G_2$), ($V^\prime_1$, $V^\prime_2$)) où :
 \begin{itemize}
   \item $G_1$ est un graphe $\chevs{V_1, E_1}$ où $V_1$ est un vecteur de sommets et où $v_i \in V_1$ ne sont pas numérotés.
   \item $G_2$ est un graphe $\chevs{V_2, E_2}$ où $V_2$ est un vecteur de sommets et où $v_i \in V_2$ ne sont pas numérotés.
-  \item $V^\prime$ est un vecteur d'entier de longueur $|V_1| + |V_2|$.
-  \item Les $|V_1|$ premier entiers de $V^\prime$ ont des valeurs entières différentes.
-  \item Les $|V_2|$ derniers entiers de $V^\prime$ ont des valeurs entières différentes.
-  \item Si $|V_1| \leq |V_2|$, alors toutes les valeurs entières 
-        des $|V_1|$ premier entiers de $V^\prime$ se retrouve aussi 
-        dans les $|V_2|$ derniers entiers.
-  \item Si $|V_2| \leq |V_2|$, alors toutes les valeurs entières 
-        des $|V_2|$ derniers entiers de $V^\prime$ se retrouve aussi 
-        dans les $|V_1|$ premiers entiers.
-  \item La valeur $i$ présente à la fois dans les deux sections, représente deux noeuds
-        ayant les mêmes arrêts dans $E_1$ et $E_2$.
+  \item $V^\prime_1$ est un vecteur d'entier de longueur $|V_1|$.
+  \item $V^\prime_2$ est un vecteur d'entier de longueur $|V_2|$.
+  \item $V^\prime_1$ contient des valeurs entières différentes.
+  \item $V^\prime_2$ contient des valeurs entières différentes.
+  \item Si $|V^\prime_1| \leq |V^\prime_2|$, alors toutes les valeurs entières 
+        de $V^\prime_1$ sont aussi dans $V^\prime_2$.
+  \item Si $|V^\prime_2| \leq |V^\prime_1|$, alors toutes les valeurs entières 
+        de $V^\prime_2$ sont aussi dans $V^\prime_1$.
+  \item Les indices d'une valeur $i$ présente à la fois dans $V^\prime_1$ et $V^\prime_2$, 
+        représente les indices d'un noeud dans $V_1$ et un noeud dans $V_2$
+        ayant les mêmes arrêtes dans $E_1$ et $E_2$ respectivement.
 \end{itemize}
 
 \subsection*{Pseudo-code de vérification}
