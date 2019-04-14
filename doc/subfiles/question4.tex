@@ -16,10 +16,8 @@ Le certificat à la forme (($G_1$, $G_2$), ($V^\prime_1$, $V^\prime_2$)) où :
   \item $V^\prime_2$ est un vecteur d'entier de longueur $|V_2|$.
   \item $V^\prime_1$ contient des valeurs entières différentes.
   \item $V^\prime_2$ contient des valeurs entières différentes.
-  \item Si $|V^\prime_1| \leq |V^\prime_2|$, alors toutes les valeurs entières 
-        de $V^\prime_1$ sont aussi dans $V^\prime_2$.
-  \item Si $|V^\prime_2| \leq |V^\prime_1|$, alors toutes les valeurs entières 
-        de $V^\prime_2$ sont aussi dans $V^\prime_1$.
+  \item $|V^\prime_1| \leq |V^\prime_2|$
+  \item Toutes les valeurs entières de $V^\prime_1$ sont aussi dans $V^\prime_2$.
   \item Les indices d'une valeur $i$ présente à la fois dans $V^\prime_1$ et $V^\prime_2$, 
         représente les indices d'un noeud dans $V_1$ et un noeud dans $V_2$
         ayant les mêmes arrêtes dans $E_1$ et $E_2$ respectivement.
@@ -37,6 +35,11 @@ Le certificat à la forme (($G_1$, $G_2$), ($V^\prime_1$, $V^\prime_2$)) où :
     }
     
     if vp2.count != g2.vertices.count
+    {
+      return false
+    }
+    
+    if vp1.count > vp2.count
     {
       return false
     }
@@ -67,17 +70,6 @@ Le certificat à la forme (($G_1$, $G_2$), ($V^\prime_1$, $V^\prime_2$)) où :
       valeurG2.add(vp2[i])
     }
 
-    minvp := null
-
-    if (g1.vertices.count <= g2.vertices.count)
-    {
-      minvp := vp1
-    }
-    else
-    {
-      minvp := vp2
-    }
-
     vectorIntersect := new vector<int>
     // Bloc C
     for(i := 0 to valeurG1.count -1)
@@ -91,14 +83,14 @@ Le certificat à la forme (($G_1$, $G_2$), ($V^\prime_1$, $V^\prime_2$)) où :
       }
     }
     
-    if vectorIntersect.count != minvp.count)
+    if vectorIntersect.count != vp1.count)
     {
       return false; /* Tout les element du plus petit graphe 
                     ne sont pas present dans le plus gros */
     }
     
     // Bloc D
-    for (i := 0 to minvp.count -1)
+    for (i := 0 to vp1.count -1)
     {
       // Bloc D.A
       label := vp1[i];
@@ -405,18 +397,15 @@ La complexité du bloc D peut donc être donnée par la sommation suivante:
 \begin{deriv}
   C^{D}\pars{n, m, x, y} 
   \<=
-  \sum\limits_{i=0}^{\min(x, y)} \pars{m \cdot n}
+  \sum\limits_{i=0}^{x-1} \pars{m \cdot n}
   \<=
-  \pars{m \cdot n} \cdot \sum\limits_{i=0}^{\min(x, y)} 1
+  \pars{m \cdot n} \cdot \sum\limits_{i=0}^{x-1} 1
   \<=
-  \pars{m \cdot n} \cdot \min(x, y)
-  \<\leq
-  \commentaire{Puisque nous cherchons une borne supérieure polynomial,\\
-              nous pouvons nous permettre d'abuser de l'inéquation. 
-              $\min(x,y) \leq x * y \forall x, y \geq 0$}
-  m \cdot n \cdot x \cdot y
+  \pars{m \cdot n} \cdot x
+  \<=
+  m \cdot n \cdot x
   \<\in
-  \BigO\pars{m \cdot n \cdot x \cdot y}
+  \BigO\pars{m \cdot n \cdot x}
 \end{deriv}
 
 
@@ -431,15 +420,15 @@ Nous aurons donc:
 \begin{deriv}
   C\pars{n, m, x, y}
   \<=
-  \max(x^2, y^2, x \cdot y, m \cdot n \cdot x \cdot y)
+  \max(x^2, y^2, x \cdot y, m \cdot n \cdot x)
   \<\leq
   \commentaire{$\forall n,m, x,y | x > 2 \wedge y > 2 \wedge n \geq x-1 \wedge n \geq y-1 $}
-  m \cdot n \cdot x \cdot y
+  m \cdot n \cdot x
   \<\in
-  \BigO\pars{m \cdot n \cdot x \cdot y}
+  \BigO\pars{m \cdot n \cdot x}
 \end{deriv}
 
-Puisque $\BigO\pars{m \cdot n \cdot x \cdot y}$ est polynomial, alors la fonction de vérification
+Puisque $\BigO\pars{m \cdot n \cdot x}$ est polynomial, alors la fonction de vérification
 appartient à $P$.
 
 
