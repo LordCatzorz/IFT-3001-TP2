@@ -30,6 +30,7 @@ Le certificat à la forme (($G_1$, $G_2$), ($V^\prime_1$, $V^\prime_2$)) où :
 \begin{lstlisting}
   Verification(g1, g2: graphe, vp1, vp2: vector<int>)
   {
+    // bloc A
     if vp1.count != g1.vertices.count
     {
       return false
@@ -42,7 +43,6 @@ Le certificat à la forme (($G_1$, $G_2$), ($V^\prime_1$, $V^\prime_2$)) où :
 
     valeurG1 := new vector<int>
     valeurG2 := new vector<int>
-
     for i := 0 to vp1.count -1
     {
       for(j = 0 to valeurG1.count - 1)
@@ -54,7 +54,7 @@ Le certificat à la forme (($G_1$, $G_2$), ($V^\prime_1$, $V^\prime_2$)) où :
       }
       valeurG1.add(vp1[i])
     }
-
+    // Bloc B
     for i := 0 to vp2.count -1 
     {
       for(j := 0 to valeurG1.count - 1)
@@ -79,7 +79,7 @@ Le certificat à la forme (($G_1$, $G_2$), ($V^\prime_1$, $V^\prime_2$)) où :
     }
 
     vectorIntersect := new vector<int>
-
+    // Bloc C
     for(i := 0 to valeurG1.count -1)
     {
       for(j := 0 to valeurG2.count -1)
@@ -97,13 +97,15 @@ Le certificat à la forme (($G_1$, $G_2$), ($V^\prime_1$, $V^\prime_2$)) où :
                     ne sont pas present dans le plus gros */
     }
     
+    // Bloc D
     for (i := 0 to minvp.count -1)
     {
+      // Bloc D.A
       label := vp1[i];
-      index2 := vp2.posof(label)
+      index2 := vp2.find(label)
       vertex1 := g1.vertices[i]
       vertex2 := g2.vertices[index2]
-
+      // Bloc D.B
       otherVertices1 = new vecor<vertex>
       for (j := 0 to vp1.edges.count -1)
       {
@@ -117,6 +119,7 @@ Le certificat à la forme (($G_1$, $G_2$), ($V^\prime_1$, $V^\prime_2$)) où :
         }
       }
       
+      //Bloc D.C
       otherVertices2 = new vector<vertex>
       for (j := 0 to vp2.edges.count -1)
       {
@@ -129,19 +132,18 @@ Le certificat à la forme (($G_1$, $G_2$), ($V^\prime_1$, $V^\prime_2$)) où :
           otherVertices2.add(vp2.edges[j].first)
         }
       }
-
       if (otherVertices1.count != otherVertices2.count)
       {
         return false;
       }
 
       intersectCounter := 0
-
-      for(k := 0 to otherVertices1.count -1)
+      // Bloc D.D
+      for(j := 0 to otherVertices1.count -1)
       {
-        for(l := 0 to otherVertices2.count -1)
+        for(k := 0 to otherVertices2.count -1)
         {
-          if (otherVertices1[i] == otherVertices2[j])
+          if (otherVertices1[k] == otherVertices2[k])
           {
             intersectCounter := intersectCounter + 1
           }
@@ -157,6 +159,288 @@ Le certificat à la forme (($G_1$, $G_2$), ($V^\prime_1$, $V^\prime_2$)) où :
     return true;
   }
 \end{lstlisting}
+
+\subsection*{Analyse du pseudo-code de vérification}
+
+La fonction de vérification prendre deux graphes 
+(un vecteur de noeud et un vecteur de pair de noeud(arrêt))
+et deux vecteurs d'entiers.
+
+La taille de l'instance est donc déterminer par :
+\begin{itemize}
+  \item $n$ : la cardinalité du vecteur d'arrêt du premier graphe;
+  \item $m$ : la cardinalité du vecteur d'arrêt du deuxième graphe
+  \item $x$ : la cardinalité du premier vecteur d'entier;
+  \item $y$ : la cardinalité du deuxième vecteur d'entier.
+\end{itemize}
+
+Nous ne nous interressons qu'à la borne maximale $\pars{\BigO}$ 
+du comportement asymptotic du pire cas.
+
+Nous devrons faire une analyse en plusieurs blocs.
+
+\subsubsection*{Analyse du bloc A}
+
+Remarquons que toutes les opérations du bloc A 
+ont une complexité constante ou constante amortie.
+
+\begin{itemize}
+  \item L'ajout dans un vecteur se fait en temps constant amorti.
+  \item L'accès à une valeur du vecteur se fait en temps constant.
+  \item L'accès au nombre d'élément du vecteur se fait en temps constant.
+  \item La création d'un vecteur vide se fait en temps constant.
+\end{itemize}
+
+Remarquons aussi que si le vecteur du noeud du premier graphe
+ne contient pas le même nombre d'élément que le nombre d'élément 
+dans le premier vecteur d'entier, nous arrêtons le l'éxécution de
+la fonction.
+
+Nous pourons donc prendre comme opération de base
+la comparaison \lstinline{valeurG1[j] == vp1[i]} qui
+est l'opération exécuté le plus souvent.
+
+La complexité peut être donnée par la sommation suivante:
+\begin{deriv}
+  C^A\pars{n, m, x, y} 
+  \<=
+  \sum\limits_{i=0}^{x-1} \sum\limits_{j=0}^{x-1} 1
+  \<=
+  \sum\limits_{i=0}^{x-1} x
+  \<=
+  x \cdot \sum\limits_{i=0}^{x-1} 1
+  \<=
+  x \cdot x
+  \<=
+  x^2
+  \<\in
+  \BigO\pars{x^2}
+\end{deriv}
+
+\subsubsection*{Analyse du bloc B}
+
+Remarquons que toutes les opérations du bloc B 
+ont une complexité constante ou constante amortie.
+
+\begin{itemize}
+  \item L'ajout dans un vecteur se fait en temps constant amorti.
+  \item L'accès à une valeur du vecteur se fait en temps constant.
+  \item L'accès au nombre d'élément du vecteur se fait en temps constant.
+  \item La création d'un vecteur vide se fait en temps constant.
+\end{itemize}
+
+Remarquons aussi que si le vecteur du noeud du deuxième graphe
+ne contient pas le même nombre d'élément que le nombre d'élément 
+dans le deuxième vecteur d'entier, nous arrêtons le l'éxécution de
+la fonction.
+
+Nous pourons donc prendre comme opération de base
+la comparaison \lstinline{valeurG2[j] == vp2[i]} qui
+est l'opération exécuté le plus souvent..
+
+La complexité peut être donnée par la sommation suivante:
+\begin{deriv}
+  C^B\pars{n, m, x, y} 
+  \<=
+  \sum\limits_{i=0}^{y-1} \sum\limits_{j=0}^{y-1} 1
+  \<=
+  \sum\limits_{i=0}^{y-1} y
+  \<=
+  y \cdot \sum\limits_{i=0}^{y-1} 1
+  \<=
+  y \cdot y
+  \<=
+  y^2
+  \<\in
+  \BigO\pars{y^2}
+\end{deriv}
+
+\subsubsection*{Analyse du bloc C}
+
+Remarquons que toutes les opérations du bloc C 
+ont une complexité constante ou constante amortie.
+
+\begin{itemize}
+  \item L'ajout dans un vecteur se fait en temps constant amorti.
+  \item L'accès à une valeur du vecteur se fait en temps constant.
+  \item L'accès au nombre d'élément du vecteur se fait en temps constant.
+  \item La création d'un vecteur vide se fait en temps constant.
+\end{itemize}
+
+Nous pourons donc prendre comme opération de base
+la comparaison \lstinline{valeurG1[i] == valeurG2[j]} qui
+est l'opération exécuté le plus souvent.
+
+La complexité peut être donnée par la sommation suivante:
+
+\begin{deriv}
+  C^B\pars{n, m, x, y} 
+  \<=
+  \sum\limits_{i=0}^{x-1} \sum\limits_{j=0}^{y-1} 1
+  \<=
+  \sum\limits_{i=0}^{y-1} x
+  \<=
+  x \cdot \sum\limits_{i=0}^{y-1} 1
+  \<=
+  x \cdot y
+  \<\in
+  \BigO\pars{x \cdot y}
+\end{deriv}
+
+\subsubsection*{Analyse du sous-bloc D.A}
+
+Remarquons que toutes les opérations du sous-bloc D.A 
+ont une complexité constante, sauf l'appel à \lstinline{find}.
+
+\lstinline{find} à une complexité linéaire en longueur du vecteur, en pire cas.
+
+La complexité peut donc être donné comme suit:
+
+$C^{D.A}\pars{n, m, x, y} = y \in \BigO\pars{y}$
+
+\subsubsection*{Analyse du sous-bloc D.B}
+
+Remarquons que toutes les opérations du sous-bloc D.B 
+ont une complexité constante ou constante ammortie.
+
+\begin{itemize}
+  \item L'ajout dans un vecteur se fait en temps constant amorti.
+  \item L'accès à une valeur du vecteur se fait en temps constant.
+  \item L'accès au nombre d'élément du vecteur se fait en temps constant.
+  \item La création d'un vecteur vide se fait en temps constant.
+\end{itemize}
+
+Nous pourons donc prendre comme opération de base
+la comparaison \lstinline{vp1.edges[j].first == vertex1} qui
+est l'opération exécuté le plus souvent.
+
+La complexité peut être donnée par la sommation suivante:
+
+\begin{deriv}
+  C^{D.B}\pars{n, m, x, y} 
+  \<=
+  \sum\limits_{j=0}^{n-1} 1
+  \<=
+  n
+  \<\in
+  \BigO\pars{n}
+\end{deriv}
+
+\subsubsection*{Analyse du sous-bloc D.C}
+
+Remarquons que toutes les opérations du sous-bloc D.C 
+ont une complexité constante ou constante ammortie.
+
+\begin{itemize}
+  \item L'ajout dans un vecteur se fait en temps constant amorti.
+  \item L'accès à une valeur du vecteur se fait en temps constant.
+  \item L'accès au nombre d'élément du vecteur se fait en temps constant.
+  \item La création d'un vecteur vide se fait en temps constant.
+\end{itemize}
+
+Nous pourons donc prendre comme opération de base
+la comparaison \lstinline{vp2.edges[j].first == vertex1} qui
+est l'opération exécuté le plus souvent.
+
+La complexité peut être donnée par la sommation suivante:
+
+\begin{deriv}
+  C^{D.C}\pars{n, m, x, y} 
+  \<=
+  \sum\limits_{j=0}^{m-1} 1
+  \<=
+  m
+  \<\in
+  \BigO\pars{m}
+\end{deriv}
+
+\subsubsection*{Analyse du sous-bloc D.D}
+
+Remarquons que toutes les opérations du sous-bloc D.D 
+ont une complexité constante.
+
+\begin{itemize}
+  \item L'accès à une valeur du vecteur se fait en temps constant.
+  \item L'accès au nombre d'élément du vecteur se fait en temps constant.
+\end{itemize}
+
+Nous pourons donc prendre comme opération de base
+la comparaison \lstinline{otherVertices1[i] == otherVertices2[j]} qui
+est l'opération exécuté le plus souvent.
+
+La complexité peut être donnée par la sommation suivante:
+
+\begin{deriv}
+  C^{D.D}\pars{n, m, x, y} 
+  \<=
+  \sum\limits_{j=0}^{n-1} \sum\limits_{k=0}^{m-1} 1
+  \<=
+  \sum\limits_{j=0}^{n-1} m
+  \<=
+  m \cdot \sum\limits_{j=0}^{n-1} 1
+  \<=
+  m \cdot n
+  \<\in
+  \BigO\pars{m \cdot n}
+\end{deriv}
+
+\subsubsection*{Analyse du bloc D}
+
+Le bloc D fait appel a chacun des sous-Bloc D.? de façon séquentielle.
+
+En pire cas, il fera appel a chacun d'entre eux au complet.
+
+Mon l'analyse asymptotic, nous pouvons donc prendre le sous-bloc 
+qui a la complexité la plus élevé.
+
+Dans notre cas, ce serait donc le sous-bloc D.D, 
+car $\max{y, n, m, m \cdot n} = m  \cdot m \cdot n$ si $m > 2 ^ n > 2$.
+
+On peut conclure que $m \cdot n >= y$ si $m > 2 ^ n > 2$, 
+car il y a au moins $nbNoeud-1$ arrêt dans un graphe et y représente
+le nombre de noeud d'un graphe.
+
+La complexité du bloc D peut donc être donnée par la sommation suivante:
+
+\begin{deriv}
+  C^{D}\pars{n, m, x, y} 
+  \<=
+  \sum\limits_{i=0}^{\min(x, y)} \pars{m \cdot n}
+  \<=
+  \pars{m \cdot n} \cdot \sum\limits_{i=0}^{\min(x, y)} 1
+  \<=
+  \pars{m \cdot n} \cdot \min(x, y)
+  \<\leq
+  \commentaire{Puisque nous cherchons une borne supérieure polynomial,\\
+              nous pouvons nous permettre d'abuser de l'inéquation. 
+              $\min(x,y) \leq x * y \forall x, y \geq 0$}
+  m \cdot n \cdot x \cdot y
+  \<\in
+  \BigO\pars{m \cdot n \cdot x \cdot y}
+\end{deriv}
+
+
+\subsubsection*{Conclusion de l'analyse}
+
+La fonction fait appel a chacun des bloc de façon séquentielle.
+
+En pire cas, elle fera appel à chacun.
+
+Nous aurons donc:
+
+\begin{deriv}
+  C\pars{n, m, x, y}
+  \<=
+  \max(x^2, y^2, x \cdot y, m \cdot n \cdot x \cdot y)
+  \<\leq
+  \commentaire{$\forall n,m, x,y | x > 2 \wedge y > 2 \wedge n \geq x-1 \wedge n \geq y-1 $}
+  m \cdot n \cdot x \cdot y
+  \<\in
+  \BigO\pars{m \cdot n \cdot x \cdot y}
+\end{deriv}
+
+Puisque $\BigO\pars{m \cdot n \cdot x \cdot y}$ est polynomial, alors la fonction de vérification
+appartient à $P$.
 
 
 \end{document}
