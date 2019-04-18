@@ -154,7 +154,7 @@ Le certificat à la forme (($G_1$, $G_2$), ($V^\prime_1$, $V^\prime_2$)) où :
 
 \subsection*{Analyse du pseudo-code de vérification}
 
-La fonction de vérification prendre deux graphes 
+La fonction de vérification prend deux graphes 
 (un vecteur de noeud et un vecteur de pair de noeud(arrêt))
 et deux vecteurs d'entiers.
 
@@ -431,5 +431,87 @@ Nous aurons donc:
 Puisque $\BigO\pars{m \cdot n \cdot x}$ est polynomial, alors la fonction de vérification
 appartient à $P$.
 
+
+
+\subsection*{Analyse en pire cas de l'algorithme de réduction}
+
+La fonction de réduction prend un graphe et modifie deux autres graphes pour la sortie.
+
+
+
+La taille de l'instance est par :
+\begin{itemize}
+  \item $n$ : le nombre de sommet du graphe entrant;
+  \item $m$ : la cardinalité du vecteur d'arrêt du graphe entrant.
+\end{itemize}
+
+Nous ne nous interressons qu'à la borne maximale $\pars{\BigO}$ 
+du comportement asymptotic du pire cas.
+
+Nous devrons faire une analyse en plusieurs blocs.
+
+\subsubsection*{Bloc A}
+
+Le bloc A est composé de la boucle \lstinline{for} et de la ligne qui suit (grapheG1).
+
+Comptons le nombre de fois que \lstinline{std::vector::emplace_back} est exécuté.
+
+Nous pouvons prendre cette opération, car c'est elle qui a la plus grande complexité (constante amortie),
+en plus d'être appelé le plus souvent.
+
+La complexité peut donc être donnée par la sommation suivante:
+
+\begin{deriv}
+  C_{worst}^D\pars{n, m}
+  \<=
+  \sum\limits_{i = 0}^n 1
+  \<=
+  n
+  \<\in
+  \Theta\pars{n}
+\end{deriv}
+
+\subsubsection*{Bloc B}
+
+Le bloc A est composé de la copie dans le grapheG2.
+
+La copie de la structure graphe inclue une copie d'un entier
+et une copie d'un vecteur.
+
+La copie de l'entier se fait en $\Theta\pars{1}$.
+
+Une copie d'un vecteur est linéaire sur le nombre d'élément. Puisqu'il y a $m$
+éléments dans le vecteur d'arrêtes, la copie du vecteur aura une complexité de $\Theta\pars{m}$.
+
+La copie du graphe est donc en $C^B_{worst}\pars{n,m}\Theta\pars{m+1} = \Theta\pars{m}$.
+
+
+\subsubsection*{Concluse de l'analyse de la réduction}
+
+La réduction d'exécute donc en $ = $
+\begin{deriv}
+  C^A_{worst}\pars{n,m}
+  \<= C^A_{worst}\pars{n,m} + C^B_{worst}\pars{n,m}
+  \<\in
+  \Theta\pars{m + n}
+\end{deriv}
+
+\subsection*{CycleHamiltonien $=$ Oui $\Rightarrow$ Sous-Graphe $=$ Oui}
+Pour qu'un graphe contienne un cycle hamiltonien, il faut qu'il y ait 
+un cycle reliant tous les noeuds du graphe en ne les visitant qu'une fois.
+
+La représentation de ce chemin représente un graphe cyclique.
+
+Donc la compairaison avec un graphe cylique de la réduction retournera vrai,
+si ce graphe contient ce cycle hamiltonien.
+
+\subsection*{CycleHamiltonien $=$ Non $\Rightarrow$ Sous-Graphe $=$ Non}
+Pour qu'un graphe ne contienne pas un cycle hamiltonien, il faut qu'il soit 
+impossible de relier tous les noeuds de ce graphe en ne les visiant qu'une fois.
+
+La représentation d'un tel chemin serait un graphe cyclique.
+
+Puisque ce cycle n'existe pas, la comparaison avec un graphe cyclique de la 
+réduction retournera faux, si ce graphe ne contient pas de cycle hamiltonien.
 
 \end{document}
