@@ -85,7 +85,7 @@ Le certificat à la forme (($G_1$, $G_2$), ($V^\prime_1$, $V^\prime_2$)) où :
     
     if vectorIntersect.count != vp1.count)
     {
-      return false; /* Tout les element du plus petit graphe 
+      return false; /* Tous les element du plus petit graphe 
                     ne sont pas present dans le plus gros */
     }
     
@@ -158,7 +158,7 @@ La fonction de vérification prend deux graphes
 (un vecteur de noeud et un vecteur de pair de noeud(arrêt))
 et deux vecteurs d'entiers.
 
-La taille de l'instance est donc déterminer par :
+La taille de l'instance est donc déterminée par :
 \begin{itemize}
   \item $n$ : la cardinalité du vecteur d'arrêt du premier graphe;
   \item $m$ : la cardinalité du vecteur d'arrêt du deuxième graphe
@@ -166,8 +166,8 @@ La taille de l'instance est donc déterminer par :
   \item $y$ : la cardinalité du deuxième vecteur d'entier.
 \end{itemize}
 
-Nous ne nous interressons qu'à la borne maximale $\pars{\BigO}$ 
-du comportement asymptotic du pire cas.
+Nous ne nous intéressons qu'à la borne maximale $\pars{\BigO}$ 
+du comportement asymptotique du pire cas.
 
 Nous devrons faire une analyse en plusieurs blocs.
 
@@ -179,18 +179,18 @@ ont une complexité constante ou constante amortie.
 \begin{itemize}
   \item L'ajout dans un vecteur se fait en temps constant amorti.
   \item L'accès à une valeur du vecteur se fait en temps constant.
-  \item L'accès au nombre d'élément du vecteur se fait en temps constant.
+  \item L'accès au nombre d'éléments du vecteur se fait en temps constant.
   \item La création d'un vecteur vide se fait en temps constant.
 \end{itemize}
 
 Remarquons aussi que si le vecteur du noeud du premier graphe
-ne contient pas le même nombre d'élément que le nombre d'élément 
-dans le premier vecteur d'entier, nous arrêtons le l'éxécution de
+ne contient pas le même nombre d'éléments que le nombre d'éléments 
+dans le premier vecteur d'entier, nous arrêtons le l'exécution de
 la fonction.
 
-Nous pourons donc prendre comme opération de base
+Nous pourrons donc prendre comme opération de base
 la comparaison \lstinline{valeurG1[j] == vp1[i]} qui
-est l'opération exécuté le plus souvent.
+est l'opération exécutée le plus souvent.
 
 La complexité peut être donnée par la sommation suivante:
 \begin{deriv}
@@ -217,18 +217,18 @@ ont une complexité constante ou constante amortie.
 \begin{itemize}
   \item L'ajout dans un vecteur se fait en temps constant amorti.
   \item L'accès à une valeur du vecteur se fait en temps constant.
-  \item L'accès au nombre d'élément du vecteur se fait en temps constant.
+  \item L'accès au nombre d'éléments du vecteur se fait en temps constant.
   \item La création d'un vecteur vide se fait en temps constant.
 \end{itemize}
 
 Remarquons aussi que si le vecteur du noeud du deuxième graphe
-ne contient pas le même nombre d'élément que le nombre d'élément 
-dans le deuxième vecteur d'entier, nous arrêtons le l'éxécution de
+ne contient pas le même nombre d'éléments que le nombre d'éléments 
+dans le deuxième vecteur d'entier, nous arrêtons le l'exécution de
 la fonction.
 
-Nous pourons donc prendre comme opération de base
+Nous pourrons donc prendre comme opération de base
 la comparaison \lstinline{valeurG2[j] == vp2[i]} qui
-est l'opération exécuté le plus souvent..
+est l'opération exécutée le plus souvent..
 
 La complexité peut être donnée par la sommation suivante:
 \begin{deriv}
@@ -255,13 +255,13 @@ ont une complexité constante ou constante amortie.
 \begin{itemize}
   \item L'ajout dans un vecteur se fait en temps constant amorti.
   \item L'accès à une valeur du vecteur se fait en temps constant.
-  \item L'accès au nombre d'élément du vecteur se fait en temps constant.
+  \item L'accès au nombre d'éléments du vecteur se fait en temps constant.
   \item La création d'un vecteur vide se fait en temps constant.
 \end{itemize}
 
-Nous pourons donc prendre comme opération de base
+Nous pourrons donc prendre comme opération de base
 la comparaison \lstinline{valeurG1[i] == valeurG2[j]} qui
-est l'opération exécuté le plus souvent.
+est l'opération exécutée le plus souvent.
 
 La complexité peut être donnée par la sommation suivante:
 
@@ -286,25 +286,25 @@ ont une complexité constante, sauf l'appel à \lstinline{find}.
 
 \lstinline{find} à une complexité linéaire en longueur du vecteur, en pire cas.
 
-La complexité peut donc être donné comme suit:
+La complexité peut donc être donnée comme suit:
 
 $C^{D.A}\pars{n, m, x, y} = y \in \BigO\pars{y}$
 
 \subsubsection*{Analyse du sous-bloc D.B}
 
 Remarquons que toutes les opérations du sous-bloc D.B 
-ont une complexité constante ou constante ammortie.
+ont une complexité constante ou constante amortie.
 
 \begin{itemize}
   \item L'ajout dans un vecteur se fait en temps constant amorti.
   \item L'accès à une valeur du vecteur se fait en temps constant.
-  \item L'accès au nombre d'élément du vecteur se fait en temps constant.
+  \item L'accès au nombre d'éléments du vecteur se fait en temps constant.
   \item La création d'un vecteur vide se fait en temps constant.
 \end{itemize}
 
-Nous pourons donc prendre comme opération de base
+Nous pourrons donc prendre comme opération de base
 la comparaison \lstinline{vp1.edges[j].first == vertex1} qui
-est l'opération exécuté le plus souvent.
+est l'opération exécutée le plus souvent.
 
 La complexité peut être donnée par la sommation suivante:
 
@@ -321,18 +321,18 @@ La complexité peut être donnée par la sommation suivante:
 \subsubsection*{Analyse du sous-bloc D.C}
 
 Remarquons que toutes les opérations du sous-bloc D.C 
-ont une complexité constante ou constante ammortie.
+ont une complexité constante ou constante amortie.
 
 \begin{itemize}
   \item L'ajout dans un vecteur se fait en temps constant amorti.
   \item L'accès à une valeur du vecteur se fait en temps constant.
-  \item L'accès au nombre d'élément du vecteur se fait en temps constant.
+  \item L'accès au nombre d'éléments du vecteur se fait en temps constant.
   \item La création d'un vecteur vide se fait en temps constant.
 \end{itemize}
 
-Nous pourons donc prendre comme opération de base
+Nous pourrons donc prendre comme opération de base
 la comparaison \lstinline{vp2.edges[j].first == vertex1} qui
-est l'opération exécuté le plus souvent.
+est l'opération exécutée le plus souvent.
 
 La complexité peut être donnée par la sommation suivante:
 
@@ -353,12 +353,12 @@ ont une complexité constante.
 
 \begin{itemize}
   \item L'accès à une valeur du vecteur se fait en temps constant.
-  \item L'accès au nombre d'élément du vecteur se fait en temps constant.
+  \item L'accès au nombre d'éléments du vecteur se fait en temps constant.
 \end{itemize}
 
-Nous pourons donc prendre comme opération de base
+Nous pourrons donc prendre comme opération de base
 la comparaison \lstinline{otherVertices1[i] == otherVertices2[j]} qui
-est l'opération exécuté le plus souvent.
+est l'opération exécutée le plus souvent.
 
 La complexité peut être donnée par la sommation suivante:
 
@@ -368,8 +368,8 @@ La complexité peut être donnée par la sommation suivante:
   \sum\limits_{j=0}^{n-1} \sum\limits_{k=0}^{m-1} 1
   \<=
   \sum\limits_{j=0}^{n-1} m
-  \<=
-  m \cdot \sum\limits_{j=0}^{n-1} 1
+  \<=L
+  mL \cdot \sum\limits_{j=0}^{n-1} 1
   \<=
   m \cdot n
   \<\in
@@ -382,15 +382,15 @@ Le bloc D fait appel a chacun des sous-Bloc D.? de façon séquentielle.
 
 En pire cas, il fera appel a chacun d'entre eux au complet.
 
-Mon l'analyse asymptotic, nous pouvons donc prendre le sous-bloc 
-qui a la complexité la plus élevé.
+Mon l'analyse asymptotique, nous pouvons donc prendre le sous-bloc 
+qui a la complexité la plus élevée.
 
 Dans notre cas, ce serait donc le sous-bloc D.D, 
 car $\max{y, n, m, m \cdot n} = m  \cdot m \cdot n$ si $m > 2 ^ n > 2$.
 
 On peut conclure que $m \cdot n >= y$ si $m > 2 ^ n > 2$, 
 car il y a au moins $nbNoeud-1$ arrêt dans un graphe et y représente
-le nombre de noeud d'un graphe.
+le nombre de noeuds d'un graphe.
 
 La complexité du bloc D peut donc être donnée par la sommation suivante:
 
@@ -411,7 +411,7 @@ La complexité du bloc D peut donc être donnée par la sommation suivante:
 
 \subsubsection*{Conclusion de l'analyse}
 
-La fonction fait appel a chacun des bloc de façon séquentielle.
+La fonction fait appel a chacun des blocs de façon séquentielle.
 
 En pire cas, elle fera appel à chacun.
 
@@ -441,12 +441,12 @@ La fonction de réduction prend un graphe et modifie deux autres graphes pour la
 
 La taille de l'instance est par :
 \begin{itemize}
-  \item $n$ : le nombre de sommet du graphe entrant;
+  \item $n$ : le nombre de sommets du graphe entrant;
   \item $m$ : la cardinalité du vecteur d'arrêt du graphe entrant.
 \end{itemize}
 
-Nous ne nous interressons qu'à la borne maximale $\pars{\BigO}$ 
-du comportement asymptotic du pire cas.
+Nous ne nous intéressons qu'à la borne maximale $\pars{\BigO}$ 
+du comportement asymptotique du pire cas.
 
 Nous devrons faire une analyse en plusieurs blocs.
 
@@ -475,18 +475,18 @@ La complexité peut donc être donnée par la sommation suivante:
 
 Le bloc A est composé de la copie dans le grapheG2.
 
-La copie de la structure graphe inclue une copie d'un entier
+La copie de la structure de graphe inclut une copie d'un entier
 et une copie d'un vecteur.
 
 La copie de l'entier se fait en $\Theta\pars{1}$.
 
-Une copie d'un vecteur est linéaire sur le nombre d'élément. Puisqu'il y a $m$
+Une copie d'un vecteur est linéaire sur le nombre d'éléments. Puisqu'il y a $m$
 éléments dans le vecteur d'arrêtes, la copie du vecteur aura une complexité de $\Theta\pars{m}$.
 
 La copie du graphe est donc en $C^B_{worst}\pars{n,m}\Theta\pars{m+1} = \Theta\pars{m}$.
 
 
-\subsubsection*{Concluse de l'analyse de la réduction}
+\subsubsection*{Conclusion de l'analyse de la réduction}
 
 La réduction d'exécute donc en $ = $
 \begin{deriv}
@@ -502,12 +502,12 @@ un cycle reliant tous les noeuds du graphe en ne les visitant qu'une fois.
 
 La représentation de ce chemin représente un graphe cyclique.
 
-Donc la compairaison avec un graphe cylique de la réduction retournera vrai,
+Donc la comparaison avec un graphe cyclique de la réduction retournera vraie,
 si ce graphe contient ce cycle hamiltonien.
 
 \subsection*{CycleHamiltonien $=$ Non $\Rightarrow$ Sous-Graphe $=$ Non}
 Pour qu'un graphe ne contienne pas un cycle hamiltonien, il faut qu'il soit 
-impossible de relier tous les noeuds de ce graphe en ne les visiant qu'une fois.
+impossible de relier tous les noeuds de ce graphe en ne les visitant qu'une fois.
 
 La représentation d'un tel chemin serait un graphe cyclique.
 

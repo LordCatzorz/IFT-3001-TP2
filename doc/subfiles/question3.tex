@@ -7,15 +7,15 @@
 
 \section*{Description}
 L'algorithme commence par utiliser les vecteurs entrants pour former un vecteur d'objet. 
-Il permettera de manipuler plus facilement les éléments.
+Il permettra de manipuler plus facilement les éléments.
 
 Il tri ensuite ces objets selon leur jour d'annonce.
 
-Un boucle s'effectue par jour. À chaque tour de boucle, on ajoute les éléments de cette journée dans un tas.
+Une boucle s'effectue par jour. À chaque tour de boucle, on ajoute les éléments de cette journée dans un tas.
 Ce tas est trié par date d'échéance.
 
-Avant de terminer la boucle, on prend l'élément avec l'échéance le plus court du tas. 
-On défini cet objet comme étant le travail à effectué cette journée.
+Avant de terminer la boucle, on prend l'élément avec l'échéance la plus courte du tas. 
+On définit cet objet comme étant le travail à effectuer cette journée.
 
 \section*{Analyse}
 
@@ -24,17 +24,17 @@ Cette fonction n'a qu'une seule opération, qui est l'accès à la valeur de var
 Il s'effectue donc en $\Theta\pars{1}$
 
 \subsection*{Analyse de la fonction \lstinline{ordonnancement::f2}}
-Cette fonction n'a qu'un seule opération, qui est l'appel à la fonction \lstinline{Travail::GetJourAnnonce()}.
+Cette fonction n'a qu'une seule opération, qui est l'appel à la fonction \lstinline{Travail::GetJourAnnonce()}.
 Il s'effectue donc en $\Theta\pars{1}$ comme cette fonction.
 
 \subsection*{Analyse de la fonction \lstinline{triParDenombrement}}
 Cette fonction prend un vecteur $A$, deux entiers délimiteurs ($lbound$ et $ubound$) ainsi qu'une fonction de traduction $f$.
-La taille de l'instance est défini par $|A|$ la cadinalité du vecteur entrant et $n = ubound - lbound$ la différence entre
+La taille de l'instance est définie par $|A|$ la cardinalité du vecteur entrant et $n = ubound - lbound$ la différence entre
 les deux entiers délimiteurs.
 
 Par assertion, nous avons $|A| = n$.
 
-Nous devrons effectué une analyse en plusieurs blocs.
+Nous devrons effectuer une analyse en plusieurs blocs.
 
 \subsubsection*{Bloc A}
 
@@ -54,7 +54,7 @@ $C^B\pars{n} = \sum\limits_{i=0}^{n-1}1 = n \in \Theta\pars{n}$
 
 Le bloc C est composé de la boucle de fréquence.
 
-La complexité de cette algorithme dépend de la complexité de la fonction $f$.
+La complexité de cet algorithme dépend de la complexité de la fonction $f$.
 
 La complexité de cette boucle peut être donnée, en tout temps, par la sommation suivante:
 
@@ -88,7 +88,7 @@ Selon la documentation, cet appel a une complexité de $\Theta\pars{n}$.
 
 Le bloc F est composé de la boucle de solution.
 
-La complexité de cette algorithme dépend de la complexité de la fonction $f$.
+La complexité de cet algorithme dépend de la complexité de la fonction $f$.
 
 La complexité de cette boucle peut être donnée, en tout temps, par la sommation suivante:
 
@@ -106,7 +106,7 @@ C_f\pars{n}n
 
 \subsubsection*{Conclusion de l'analyse de la fonction \lstinline{triParDenombrement}}
 
-La complexité de la fonction \lstinline{triParDenombrement} peut être donné
+La complexité de la fonction \lstinline{triParDenombrement} peut être donnée
 par le maximum des complexités des blocs précédents.
 
 \begin{deriv}
@@ -120,11 +120,11 @@ par le maximum des complexités des blocs précédents.
 \end{deriv}
 
 En particulier, considérons le cas où $C_f\pars{n} \in \Theta\pars{n}$,
-la fonction \lstinline{triParDenombrement} s'éxecutera donc en $\Theta\pars{n}$.
+la fonction \lstinline{triParDenombrement} s'exécutera donc en $\Theta\pars{n}$.
 
 \subsection*{Analyse de la fonction \lstinline{ordonnancement}}
 
-Cette fonction prendre deux vecteurs entrants $A$ et $B$ et produit un vecteur sortant $C$.
+Cette fonction prendre deux vecteurs entrants, $A$ et $B$, et produit un vecteur sortant $C$.
 Par assertion, nous avons que $|A| = |B| = |C|$.
 
 La taille de l'instance est donc $n = |A|$.
@@ -139,11 +139,11 @@ Le bloc A est composé de la boucle d'initialisation du vecteur d'objet de type 
 
 Nous pouvons prendre comme opération baromètre l'appel à la fonction \lstinline{std::vector::emplace_back}.
 
-Cette opération est appelé la plus souvent à une constante près. Toutes les autres opérations s'exécute en temps constant.
+Cette opération est appelée la plus souvent à une constante près. Toutes les autres opérations s'exécutent en temps constant.
 
 Selon la documentation, un appel à cette méthode a une complexité constante amortie.
 
-Le nombre de fois que cette opération est exécuté peut donc être donnée par la sommation suivante:
+Le nombre de fois que cette opération est exécutée peut donc être donné par la sommation suivante:
 
 $C^A\pars{n} = \sum\limits_{i=0}^{n-1}1 = n \in \Theta\pars{n}$
 
@@ -151,10 +151,10 @@ $C^A\pars{n} = \sum\limits_{i=0}^{n-1}1 = n \in \Theta\pars{n}$
 
 Le bloc B est composé de l'appel à \lstinline{triParDenombrement}.
 
-Selon l'analyse précédentes, cette fonction s'exécute en $\Theta\pars{n}$
+Selon l'analyse précédente, cette fonction s'exécute en $\Theta\pars{n}$
 lors que la complexité de la fonction en paramètre est constante. Ce qui est le cas,
 puis que nous lui envoyons \lstinline{ordonnancement::f2} qui est en $\Theta\pars{1}$ selon<
-l'analyse précédentes.
+l'analyse précédente.
 
 Donc $C^B \in \Theta\pars{n}$
 

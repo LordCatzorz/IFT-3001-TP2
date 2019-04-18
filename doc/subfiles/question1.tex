@@ -8,7 +8,7 @@
 \section*{Algorithme 1}
 
 Le temps d'exécution de l'algorithme dépend de la taille de l'instance $n$ 
-(nombre d'élément dans le vecteur d'entrée $A$)
+(nombre d'éléments dans le vecteur d'entrée $A$)
 et de la valeur de $k$ générée aléatoirement. 
 
 L'opération de base est le calcul de $i\text{ mod }n$. 
@@ -16,7 +16,7 @@ C'est l'opération qui peut être le plus souvent.
 
 Il n'y a pas de pire ou de meilleur cas, 
 car l'algorithme ne dépend pas du contenu du vecteur (à l'exception de $n=1$,
-où la valeur $A[0]=0$ où la conditionnelle s'exécutera toujours et où $A[0] = 1$ ou elle ne s'éxécutera jamais).
+où la valeur $A[0]=0$ où la conditionnelle s'exécutera toujours et où $A[0] = 1$ ou elle ne s'exécutera jamais).
 
 Désignons la valeur de $A[0]$ par $a$
 
@@ -28,7 +28,7 @@ La complexité de l'algorithme dans tous les cas est donc la suivante:
     \commentaire{Définition de l'algorithme}
     E_a\crochs{E_k\crochs{C\pars{n, k, a}}}
     \<=
-    \commentaire{Étendre les espérences}
+    \commentaire{Étendre les espérances}
     \sum\limits_{a} \rho\pars{a} \sum\limits_{k} \rho\pars{k}C\pars{n, k, a}
     \<=
     \commentaire{Valeur de $a$ possible est de $\crochs{0..1}$}
@@ -45,7 +45,7 @@ La complexité de l'algorithme dans tous les cas est donc la suivante:
         sont équiprobables. Donc $\rho{\pars{a} = \frac{1}{n}}$ }
     \sum\limits_{a=0}^{1} \frac{1}{2} \sum\limits_{k=0}^{n-1} \frac{1}{n}C\pars{n, k, a}
     \<=
-    \commentaire{Mettre en évidance les constantes}
+    \commentaire{Mettre en évidence les constantes}
     \frac{1}{2}\frac{1}{n} \sum\limits_{a=0}^{1}\sum\limits_{k=0}^{n-1} C\pars{n, k, a}
     \<=
     \commentaire{Étendre partiellement la sommation de $k$}
@@ -91,11 +91,11 @@ Analysons $C\pars{n, k, a}$
 \section*{Algorithme 2}
 
 Le temps d'exécution de l'algorithme dépend de la taille de l'instance $n$ 
-(nombre d'élément dans le vecteur d'entrée $A$)
+(nombre d'éléments dans le vecteur d'entrée $A$)
 et de la valeur de $k$ générée aléatoirement. 
 
 L'opération de base est le calcul de $i\text{ mod }n$.
-C'est l'opération qui peut être exécuter le plus souvent.
+C'est l'opération qui peut être exécutée le plus souvent.
 
 Il y a un meilleur et un pire cas.
 
@@ -112,13 +112,13 @@ La complexité de l'algorithme en pire cas sera donc la suivante:
     \commentaire{Définition de l'algorithme}
     E_k\crochs{C\pars{n, k}}
     \<=
-    \commentaire{Étendre les espérences}
+    \commentaire{Étendre les espérances}
     \sum\limits_{k} \rho\pars{k}C\pars{n, k}
     \<=
     \commentaire{Valeur possible de $k$}
     \sum\limits_{k=0}^{n-1} \rho\pars{k}C\pars{n, k}
     \<=
-    \commentaire{Toutes les possibilités d'Avoir une valeur de $k$\\
+    \commentaire{Toutes les possibilités d'avoir une valeur de $k$\\
                  sont équiprobables. Donc $\rho\pars{k} = \frac{1}{n}$}
     \sum\limits_{k=0}^{n-1} \frac{1}{n}C\pars{n, k}
     \<=
@@ -187,7 +187,7 @@ La complexité de l'algorithme en pire cas sera donc la suivante:
     \commentaire{Remettre sur un diviseur commun}
     \frac{2n^2}{6}-\frac{3n}{6}
     \<= 
-    \commentaire{Mettre en évidance le diviseur.}
+    \commentaire{Mettre en évidence le diviseur.}
     \frac{1}{6}\pars{2n^2-3n}
     \<\geq 
     \commentaire{$\forall n \geq 3$}
@@ -208,7 +208,7 @@ $C_{worst}\pars{n} \in \Theta\pars{n^2}$
 
 En meilleur cas, la valeur à la première position du vecteur $A$ est 1. ($A[0] = 1$)
 
-Alors, nous sautons complètetement la conditionnelle \lstinline{si - alors}.
+Alors, nous sautons complètement la conditionnelle \lstinline{si - alors}.
 
 Puisque l'opération de base n'est jamais exécutée,
 la complexité de l'algorithme en meilleur cas sera donc la suivante:
@@ -228,13 +228,13 @@ La complexité de l'algorithme en cas moyen sera donc la suivante:
     \commentaire{Définition de l'algorithme}
     E_{a}E_{k}\crochs{C\pars{n, k, a}}
     \<=
-    \commentaire{Étendre l'espérence de $a$}
+    \commentaire{Étendre l'espérance de $a$}
     \sum\limits_a \rho\pars{a}E_{k}\crochs{C\pars{n, k, a}}
     \<=
     \commentaire{Valeurs possibles de $a$}
     \sum\limits_{a=0}^1 \rho\pars{a} E_{k}\crochs{C\pars{n, k, a}}
     \<=
-    \commentaire{Toutes les possibilités d'avoir un valeur de $a$ sont\\
+    \commentaire{Toutes les possibilités d'avoir une valeur de $a$ sont\\
                  équiprobables. Donc $\rho\pars{a} = \frac{1}{2}$}
     \sum\limits_{a=0}^1 \frac{1}{2} E_{k}\crochs{C\pars{n, k, a}}
     \<=
@@ -263,7 +263,7 @@ La complexité de l'algorithme en cas moyen sera donc la suivante:
     \frac{2n^2-3n + 1}{12}
 \end{deriv}
 
-\subsubsection*{Calcul de théta}
+\subsubsection*{Calcul de thêta}
 
 Montrons que $C_{avg}\pars{n} \in Theta\pars{n^2}$. 
 
@@ -276,7 +276,7 @@ le polynôme ressemble beaucoup au $C_{worst}\pars{n}$.
     \commentaire{Double fraction}
     \lim\limits_{n->\infty} \frac{2n^2-3n + 1}{12n^2}
     \<=
-    \commentaire{Règle de l'hôspital}
+    \commentaire{Règle de l'Hôspital}
     \lim\limits_{n->\infty} \frac{\pars{2n^2-3n + 1}'}{\pars{12n^2}'}
     \<=
     \commentaire{Distribuer la dérivée}
@@ -288,7 +288,7 @@ le polynôme ressemble beaucoup au $C_{worst}\pars{n}$.
     \commentaire{Simplifier}
     \lim\limits_{n->\infty} \frac{4n-3}{24n}
     \<=
-    \commentaire{Règle de l'hôspital}
+    \commentaire{Règle de l'Hôspital}
     \lim\limits_{n->\infty} \frac{\pars{4n-3}'}{\pars{24n}'}
     \<=
     \commentaire{Distribuer la dérivée}
