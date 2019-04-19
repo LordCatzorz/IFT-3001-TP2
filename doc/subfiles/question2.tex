@@ -24,8 +24,11 @@ La troisième dimension va de 0 jusqu'au nombre de bières commandées.
 
 \subsection*{Définition d'une cellule}
 
-La cellule $M[i,j,k]$ contient le prix minimum pour une commande de j ailes et k bières.
-Elle contient l'infini si cette combinaison de j ailes et k bières est impossible.
+La cellule $M[i,j,k]$ contient le prix minimum pour une commande 
+de $j$ ailes et $k$ pintes de bière dans un menu contenant les 
+$i$ premiers items du meen.
+
+Elle contient l'infini si cette combinaison de $j$ ailes et $k$ pinte de bière est impossible.
 
 
 \subsection*{Conditions initiales}
@@ -63,7 +66,7 @@ Nous devons séparer l'analyse en plusieurs blocs, puisqu'il y a des appels de f
 
 \subsubsection*{Bloc A}
 
-Le bloc A est tout ce qui se trouve à dessus des boucles \lstinline{for}.
+Le bloc A est tout ce qui se trouve au dessus des boucles \lstinline{for}.
 
 Nous avons deux appels de fonction ici. Un appel à \lstinline{vector::size} et au constructeur
 de \lstinline{Tableau::Tableau}
@@ -72,10 +75,14 @@ Ils sont tous les deux exécutés une seule fois.
 
 L'appel à \lstinline{vector::size} ce fait en tant constant $\Theta\pars{1}$.
 
-L'appel à \lstinline{Tableau::Tableau} ce fait en temps linéaire sur le nombre de cas du tableau.
+L'appel à \lstinline{Tableau::Tableau} ce fait en temps linéaire sur le nombre de case du tableau.
+
 Il n'y a pas de pire cas.
+
 Dans notre cas, il se fait donc en tout temps à une complexité de
 \begin{deriv}
+C_{Tableau}\pars{n, a, b}
+\<\in
 \Theta\pars{(n+1)*(a+1)*(b+1)}
 \<= 
 \commentaire{Étendre polynôme}
@@ -93,7 +100,7 @@ Donc, le bloc A a une complexité de $\Theta\pars{\max\pars{1 + nab}} = \Theta\p
 Le bloc B est constitué de la boucle \lstinline{for} et de ces sous-boucles.
 
 L'opération de base est la comparaison \lstinline{i == 0}, car c'est l'opération
-exécuter le plus souvent et que tous les appels de fonction se font en temps constants,
+exécuté le plus souvent et que tous les appels de fonction se font en temps constants,
 incluant \lstinline{Tableau::at}.
 
 Il n'y a pas de pire cas.
@@ -141,7 +148,7 @@ Puisque le bloc A a une complexité de $\Theta\pars{nab}$ et
 le bloc B une complexité de $\Theta\pars{nab}$, la fonction genererTableau
 a une complexité de $\Theta\pars{nab}$, selon la règle du maximum.
 
-$C_{genererTableau} = \Theta\pars{nab}$
+$C_{genererTableau}\pars{n, a, b} \in \Theta\pars{nab}$
 
 \section*{Analyse de la fonction \lstinline{solutionnerTableau}}
 
@@ -160,7 +167,7 @@ Il y a un meilleur et un pire cas, dépendamment du contenu du tableau $M$.
 Le meilleur cas est quand l'élément à la position $M[n,a,b]$ a une valeur infinie.
 
 Dans ce cas, l'opération est exécutée 0 fois et la complexité est définie par:
-$C^{solutionnerTableau}_{best} = 0 \in \Theta\pars{1}$
+$C^{solutionnerTableau}_{best}\pars{n, a, b} = 0 \in \Theta\pars{1}$
 
 \subsection*{Pire cas}
 
@@ -246,7 +253,7 @@ de la fonction \lstinline{genererTableau} est en $\Theta\pars{nab}$,
 Puisque $\Theta\pars{nab} > \Theta\pars{n + a + b}
 \forall n, a, b | n > 1 \wedge a > 1 \wedge b > 1$,
 
-Alors, la complexité de \lstinline{commande} est $\Theta\pars{nab}$
+Alors, la complexité de \lstinline{commande} est en $\Theta\pars{nab}$
 
 
 \end{document} 

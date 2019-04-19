@@ -194,7 +194,7 @@ est l'opération exécutée le plus souvent.
 
 La complexité peut être donnée par la sommation suivante:
 \begin{deriv}
-  C^A\pars{n, m, x, y} 
+  C^A_{worst}\pars{n, m, x, y} 
   \<=
   \sum\limits_{i=0}^{x-1} \sum\limits_{j=0}^{x-1} 1
   \<=
@@ -232,7 +232,7 @@ est l'opération exécutée le plus souvent..
 
 La complexité peut être donnée par la sommation suivante:
 \begin{deriv}
-  C^B\pars{n, m, x, y} 
+  C^B_{worst}\pars{n, m, x, y} 
   \<=
   \sum\limits_{i=0}^{y-1} \sum\limits_{j=0}^{y-1} 1
   \<=
@@ -266,7 +266,7 @@ est l'opération exécutée le plus souvent.
 La complexité peut être donnée par la sommation suivante:
 
 \begin{deriv}
-  C^B\pars{n, m, x, y} 
+  C^B_{worst}\pars{n, m, x, y} 
   \<=
   \sum\limits_{i=0}^{x-1} \sum\limits_{j=0}^{y-1} 1
   \<=
@@ -288,7 +288,7 @@ ont une complexité constante, sauf l'appel à \lstinline{find}.
 
 La complexité peut donc être donnée comme suit:
 
-$C^{D.A}\pars{n, m, x, y} = y \in \BigO\pars{y}$
+$C^{D.A}_{worst}\pars{n, m, x, y} = y \in \BigO\pars{y}$
 
 \subsubsection*{Analyse du sous-bloc D.B}
 
@@ -309,7 +309,7 @@ est l'opération exécutée le plus souvent.
 La complexité peut être donnée par la sommation suivante:
 
 \begin{deriv}
-  C^{D.B}\pars{n, m, x, y} 
+  C^{D.B}_{worst}\pars{n, m, x, y} 
   \<=
   \sum\limits_{j=0}^{n-1} 1
   \<=
@@ -337,7 +337,7 @@ est l'opération exécutée le plus souvent.
 La complexité peut être donnée par la sommation suivante:
 
 \begin{deriv}
-  C^{D.C}\pars{n, m, x, y} 
+  C^{D.C}_{worst}\pars{n, m, x, y} 
   \<=
   \sum\limits_{j=0}^{m-1} 1
   \<=
@@ -363,13 +363,13 @@ est l'opération exécutée le plus souvent.
 La complexité peut être donnée par la sommation suivante:
 
 \begin{deriv}
-  C^{D.D}\pars{n, m, x, y} 
+  C^{D.D}_{worst}\pars{n, m, x, y} 
   \<=
   \sum\limits_{j=0}^{n-1} \sum\limits_{k=0}^{m-1} 1
   \<=
   \sum\limits_{j=0}^{n-1} m
-  \<=L
-  mL \cdot \sum\limits_{j=0}^{n-1} 1
+  \<=
+  m \cdot \sum\limits_{j=0}^{n-1} 1
   \<=
   m \cdot n
   \<\in
@@ -395,7 +395,7 @@ le nombre de noeuds d'un graphe.
 La complexité du bloc D peut donc être donnée par la sommation suivante:
 
 \begin{deriv}
-  C^{D}\pars{n, m, x, y} 
+  C^{D}_{worst}\pars{n, m, x, y} 
   \<=
   \sum\limits_{i=0}^{x-1} \pars{m \cdot n}
   \<=
@@ -418,7 +418,7 @@ En pire cas, elle fera appel à chacun.
 Nous aurons donc:
 
 \begin{deriv}
-  C\pars{n, m, x, y}
+  C_{worst}\pars{n, m, x, y}
   \<=
   \max(x^2, y^2, x \cdot y, m \cdot n \cdot x)
   \<\leq
@@ -431,13 +431,9 @@ Nous aurons donc:
 Puisque $\BigO\pars{m \cdot n \cdot x}$ est polynomial, alors la fonction de vérification
 appartient à $P$.
 
-
-
 \subsection*{Analyse en pire cas de l'algorithme de réduction}
 
 La fonction de réduction prend un graphe et modifie deux autres graphes pour la sortie.
-
-
 
 La taille de l'instance est par :
 \begin{itemize}
@@ -488,7 +484,7 @@ La copie du graphe est donc en $C^B_{worst}\pars{n,m}\Theta\pars{m+1} = \Theta\p
 
 \subsubsection*{Conclusion de l'analyse de la réduction}
 
-La réduction d'exécute donc en $ = $
+La réduction d'exécute donc en :
 \begin{deriv}
   C^A_{worst}\pars{n,m}
   \<= C^A_{worst}\pars{n,m} + C^B_{worst}\pars{n,m}
