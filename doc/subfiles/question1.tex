@@ -234,79 +234,73 @@ La complexité de l'algorithme en cas moyen sera donc la suivante:
     \commentaire{Valeurs possibles de $a$}
     \sum\limits_{a=0}^1 \rho\pars{a} E_{k}\crochs{C\pars{n, k, a}}
     \<=
-    \commentaire{Toutes les possibilités d'avoir une valeur de $a$ sont\\
-                 équiprobables. Donc $\rho\pars{a} = \frac{1}{2}$}
-    \sum\limits_{a=0}^1 \frac{1}{2} E_{k}\crochs{C\pars{n, k, a}}
-    \<=
-    \commentaire{Extraire multiplication constante}
-    \frac{1}{2} \sum\limits_{a=0}^1E_{k}\crochs{C\pars{n, k, a}}
-    \<=
-    \commentaire{Étendre la sommation de $a$}
-    \frac{1}{2} \pars{E_{k}\crochs{C\pars{n, k, 0}} + E_{k}\crochs{C\pars{n, k, 1}}} 
+    \commentaire{La probabilité d'avoir $a = 0$ est de $\frac{1}{n}.$\\
+                 Donc la probabilité d'avoir $a \neq 0$ est de $\frac{n-1}{n}$}
+    \frac{1}{n} E_{k}\crochs{C\pars{n, k, 0}} + \frac{n-1}{n} E_{k}\crochs{C\pars{n, k, 1}}
     \<=
     \commentaire{$C_{worst}\pars{n} = E_{k}\crochs{C\pars{n, k, 0}}$ puisque $a = 0$}
-    \frac{1}{2} \pars{C_{worst}\pars{n} + E_{k}\crochs{C\pars{n, k, 1}}} 
+    \frac{1}{n} \pars{C_{worst}\pars{n}} + \frac{n-1}{n} E_{k}\crochs{C\pars{n, k, 1}}
     \<=
     \commentaire{$C_{best}\pars{n} = E_{k}\crochs{C\pars{n, k, 1}}$ puisque $a = 1$}
-    \frac{1}{2} \pars{C_{worst}\pars{n} + C_{best}\pars{n}}
+    \frac{1}{n} \pars{C_{worst}\pars{n}} + \frac{n-1}{n} \pars{C_{best}\pars{n}}
     \<=
     \commentaire{Définition de $C_{worst}\pars{n}$}
-    \frac{1}{2} \pars{\frac{2n^2-3n + 1}{6} + C_{best}\pars{n}}
+    \frac{1}{n} \pars{\frac{2n^2-3n + 1}{6}} + \frac{n-1}{n} \pars{C_{best}\pars{n}}
     \<=
     \commentaire{Définition de $C_{best}\pars{n}$}
-    \frac{1}{2} \pars{\frac{2n^2-3n + 1}{6} + 0}
+    \frac{1}{n} \pars{\frac{2n^2-3n + 1}{6}} + \frac{n-1}{n} \pars{0}
     \<=
     \commentaire{Simplification}
-    \frac{1}{2} \pars{\frac{2n^2-3n + 1}{6}}
+    \frac{1}{n} \pars{\frac{2n^2-3n + 1}{6}}
     \<=
     \commentaire{Simplification}
-    \frac{2n^2-3n + 1}{12}
+    \frac{2n^2-3n + 1}{6n}
 \end{deriv}
 
 \subsubsection*{Calcul de thêta}
 
-Montrons que $C_{avg}\pars{n} \in \Theta\pars{n^2}$. 
+Montrons que $C_{avg}\pars{n} \in \Theta\pars{n}$. 
 
-Nous supposons que $C_{avg}\pars{n} \in \Theta\pars{n^2}$, car
-le polynôme ressemble beaucoup au $C_{worst}\pars{n}$.
+Nous supposons que $C_{avg}\pars{n} \in \Theta\pars{n}$, car
+le polynôme est un polynôme de degré 2 divisé par un polynôme de degré 1.
 
 \begin{deriv}
-    \lim\limits_{n->\infty} \frac{\frac{2n^2-3n + 1}{12}}{n^2}
+    \lim\limits_{n->\infty} \frac{\frac{2n^2-3n + 1}{6n}}{n}
     \<=
     \commentaire{Double fraction}
-    \lim\limits_{n->\infty} \frac{2n^2-3n + 1}{12n^2}
+    \lim\limits_{n->\infty} \frac{2n^2-3n + 1}{6n^2}
     \<=
     \commentaire{Règle de l'Hôspital}
-    \lim\limits_{n->\infty} \frac{\pars{2n^2-3n + 1}'}{\pars{12n^2}'}
+    \lim\limits_{n->\infty} \frac{\pars{2n^2-3n + 1}'}{\pars{6n^2}'}
     \<=
     \commentaire{Distribuer la dérivée}
-    \lim\limits_{n->\infty} \frac{\pars{2n^2}'-\pars{3n}' + \pars{1}'}{\pars{12n^2}'}
+    \lim\limits_{n->\infty} \frac{\pars{2n^2}'-\pars{3n}' + \pars{1}'}{\pars{6n^2}'}
     \<=
     \commentaire{Dériver}
-    \lim\limits_{n->\infty} \frac{2\cdot2n-1\cdot3 + 0\cdot1}{2\cdot12n}
+    \lim\limits_{n->\infty} \frac{2\cdot2n-1\cdot3 + 0\cdot1}{2\cdot6n}
     \<=
     \commentaire{Simplifier}
-    \lim\limits_{n->\infty} \frac{4n-3}{24n}
+    \lim\limits_{n->\infty} \frac{4n-3}{12n}
     \<=
     \commentaire{Règle de l'Hôspital}
-    \lim\limits_{n->\infty} \frac{\pars{4n-3}'}{\pars{24n}'}
+    \lim\limits_{n->\infty} \frac{\pars{4n-3}'}{\pars{12n}'}
     \<=
     \commentaire{Distribuer la dérivée}
-    \lim\limits_{n->\infty} \frac{\pars{4n}'-\pars{3}'}{\pars{24n}'}
+    \lim\limits_{n->\infty} \frac{\pars{4n}'-\pars{3}'}{\pars{12n}'}
     \<=
     \commentaire{Dériver}
-    \lim\limits_{n->\infty} \frac{1 \cdot 4-0 \cdot 3}{1 \cdot 24}
+    \lim\limits_{n->\infty} \frac{1 \cdot 4-0 \cdot 3}{1 \cdot 12}
     \<=
     \commentaire{Simplifier}
-    \lim\limits_{n->\infty} \frac{4}{24}
+    \lim\limits_{n->\infty} \frac{4}{12}
     \<=
     \commentaire{Résoudre la limite}
     \frac{4}{24}
     \<=
     \commentaire{Simplifier}
-    \frac{1}{6}
+    \frac{1}{3}
 \end{deriv}
 
-Donc $C_{avg}\pars{n} \in \Theta\pars{n^2}$.
+Donc $C_{avg}\pars{n} \in \Theta\pars{n}$.
 
 \end{document} 
